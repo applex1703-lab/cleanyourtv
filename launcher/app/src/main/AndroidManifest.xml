@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-feature android:name="android.software.leanback" android:required="false" />
     <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
@@ -9,19 +8,12 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <!-- Needed since Android 10 to read the Wi-Fi network name for the network pill. Never requested at
-         runtime: build-and-install grants it with pm grant, so lint's Android 12 "ask for COARSE with
-         FINE" rule does not apply here. -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"
-        tools:ignore="CoarseFineLocation" />
+    <!-- Needed on Android 10 to read the Wi-Fi network name; granted over adb at install time. -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <!-- Android 11+ package visibility: lets the launcher list the TV apps it shows as tiles, and the
          apps that declare a module card (docs/specs/card.md). -->
     <queries>
-        <intent>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent>
         <intent>
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
@@ -64,26 +56,20 @@
         </activity>
 
         <activity
-            android:name=".LauncherSettingsActivity"
-            android:exported="false"
-            android:excludeFromRecents="true"
-            android:screenOrientation="landscape" />
-        <!-- Remote Settings button panel (settings_key_panel); own task so the app behind stays put. -->
-        <activity
-            android:name=".QuickSettingsActivity"
-            android:exported="false"
-            android:taskAffinity=""
-            android:launchMode="singleTop"
-            android:excludeFromRecents="true"
-            android:noHistory="true"
-            android:screenOrientation="landscape"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
-        <activity
             android:name=".HomeSettingsActivity"
             android:exported="false"
             android:taskAffinity=""
             android:excludeFromRecents="true"
             android:theme="@android:style/Theme.NoDisplay" />
+
+        <!-- Tile arrangement editor: the pencil pill on the home screen opens it. -->
+        <activity
+            android:name=".TileEditorActivity"
+            android:exported="false"
+            android:taskAffinity=""
+            android:excludeFromRecents="true"
+            android:screenOrientation="landscape"
+            android:configChanges="orientation|screenSize|keyboard|keyboardHidden|uiMode" />
         <!-- Home button for remotes that send KEYCODE_ALL_APPS (Xiaomi). Opt-in: HOME_KEY_SERVICE=1
              build-and-install.sh; see HomeKeyService. -->
         <service
@@ -99,14 +85,6 @@
                 android:resource="@xml/home_key_service" />
         </service>
 
-        <!-- The same clock, started by Home itself after home_idle_clock_minutes without input. -->
-        <activity
-            android:name=".ClockActivity"
-            android:exported="false"
-            android:excludeFromRecents="true"
-            android:noHistory="true"
-            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
-
         <!-- Screensaver: pick it in Settings, or `settings put secure screensaver_components
              com.gathin.tvhome/.ClockDream` over adb. -->
         <service
@@ -120,16 +98,7 @@
             </intent-filter>
         </service>
 
-        <!-- tools/theme.sh writes the theme through this where the shell can't reach Android/data;
-             see ThemeProvider. WRITE_SECURE_SETTINGS: the adb shell has it, ordinary apps don't. -->
-        <provider
-            android:name=".ThemeProvider"
-            android:authorities="${applicationId}.theme"
-            android:exported="true"
-            android:permission="android.permission.WRITE_SECURE_SETTINGS" />
-
-        <!-- The remote's Input button (KEYCODE_TV or KEYCODE_TV_INPUT) opens the input switcher, and input_key_keycodes and
-         app_keys (config.xml or a theme) bring back other remote buttons; see InputKeyService. -->
+        <!-- The remote's Input button (KEYCODE_TV) opens the input switcher; see InputKeyService. -->
         <service
             android:name=".InputKeyService"
             android:exported="false"
