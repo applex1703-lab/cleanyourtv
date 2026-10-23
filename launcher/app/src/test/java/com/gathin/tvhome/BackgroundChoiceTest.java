@@ -21,6 +21,13 @@ public class BackgroundChoiceTest {
         assertEquals(0, BackgroundChoice.palette(-1));
         assertEquals(0, BackgroundChoice.palette(99));
     }
+    @Test public void presetsAreActualTwoColorGradients() {
+        assertEquals(7, BackgroundChoice.PICKER_PALETTES.length);
+        assertEquals(BackgroundChoice.COLORS.length, BackgroundChoice.SECOND_COLORS.length);
+        for (int index : BackgroundChoice.PICKER_PALETTES) {
+            if (index != 0) assertNotEquals(BackgroundChoice.COLORS[index], BackgroundChoice.SECOND_COLORS[index]);
+        }
+    }
     @Test public void dockScopeDoesNotLeakIntoLowerRows() {
         assertTrue(BackgroundChoice.visible(true, false));
         assertFalse(BackgroundChoice.visible(false, false));

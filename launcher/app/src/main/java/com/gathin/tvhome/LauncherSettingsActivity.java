@@ -186,23 +186,32 @@ public final class LauncherSettingsActivity extends Activity {
     }
 
     private String[] colorLabels() {
-        return new String[]{getString(R.string.background_auto), getString(R.string.background_blue),
-                getString(R.string.background_purple), getString(R.string.background_teal),
-                getString(R.string.background_amber), getString(R.string.background_rose),
-                getString(R.string.background_gold),
-                getString(R.string.background_graphite)};
+        return new String[]{getString(R.string.background_auto), getString(R.string.gradient_aurora),
+                getString(R.string.gradient_neon), getString(R.string.gradient_sunset),
+                getString(R.string.gradient_ocean), getString(R.string.gradient_lava), getString(R.string.gradient_gold)};
     }
 
     private void showColors() {
         String[] names = colorLabels();
-        android.text.SpannableString[] labels = new android.text.SpannableString[names.length];
-        for (int i = 0; i < names.length; i++) {
-            labels[i] = new android.text.SpannableString("●   " + names[i]);
-            labels[i].setSpan(new android.text.style.ForegroundColorSpan(i == 0 ? 0xFFE1E8EF : BackgroundChoice.COLORS[BackgroundChoice.PICKER_PALETTES[i]]),
-                    0, 1, android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        }
+        android.widget.ArrayAdapter<String> adapter = new android.widget.ArrayAdapter<String>(this,
+                android.R.layout.select_dialog_singlechoice, names) {
+            @Override public View getView(int position, View recycled, ViewGroup parent) {
+                TextView row = (TextView) super.getView(position, recycled, parent);
+                int palette = BackgroundChoice.PICKER_PALETTES[position];
+                android.graphics.drawable.GradientDrawable preview = new android.graphics.drawable.GradientDrawable(
+                        android.graphics.drawable.GradientDrawable.Orientation.TL_BR,
+                        palette == 0 ? new int[]{0xFF546E7A, 0xFFB0BEC5}
+                                : new int[]{BackgroundChoice.COLORS[palette], BackgroundChoice.SECOND_COLORS[palette]});
+                float dp = getResources().getDisplayMetrics().density;
+                preview.setCornerRadius(6 * dp);
+                preview.setBounds(0, 0, Math.round(64 * dp), Math.round(30 * dp));
+                row.setCompoundDrawablesRelative(preview, null, null, null);
+                row.setCompoundDrawablePadding(Math.round(14 * dp));
+                return row;
+            }
+        };
         new AlertDialog.Builder(this).setTitle(R.string.background_colors)
-                .setSingleChoiceItems(labels, BackgroundChoice.pickerIndex(choices.getInt(BackgroundChoice.PALETTE, 0)),
+                .setSingleChoiceItems(adapter, BackgroundChoice.pickerIndex(choices.getInt(BackgroundChoice.PALETTE, 0)),
                         (dialog, which) -> {
                             choices.edit().putString(BackgroundChoice.MODE, "colors")
                                     .putInt(BackgroundChoice.PALETTE, BackgroundChoice.PICKER_PALETTES[which]).apply();

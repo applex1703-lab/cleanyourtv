@@ -6,11 +6,12 @@ final class BackgroundChoice {
     static final String PALETTE = "background_palette";
     static final String ALWAYS = "background_always";
     static final String IMAGE = "custom-background";
-    // Distinct hue families rather than several nearly identical blue/green/red variants.
-    // Keep legacy indices valid; the picker exposes only the curated selection below.
-    static final int[] COLORS = {0, 0xFF689AC8, 0xFFA38AC9, 0xFF467C60, 0xFFD19A78, 0xFFB4778B,
-            0xFF689AC8, 0xFFA38AC9, 0xFF467C60, 0xFFB9A374, 0xFFB9A374, 0xFFB4778B, 0xFF78818B};
-    static final int[] PICKER_PALETTES = {0, 1, 2, 3, 4, 5, 10, 12};
+    // Keep old indices readable while exposing six distinct two-colour gradients.
+    static final int[] COLORS = {0, 0xFF123DB8, 0xFF2359E8, 0xFF087F83, 0xFFF17A28, 0xFF711C3A,
+            0xFF123DB8, 0xFF2359E8, 0xFF087F83, 0xFFCB952B, 0xFFCB952B, 0xFF711C3A, 0xFF123DB8};
+    static final int[] SECOND_COLORS = {0, 0xFF00C6D7, 0xFFB62ACD, 0xFF28BB67, 0xFFC72972, 0xFFE94032,
+            0xFF00C6D7, 0xFFB62ACD, 0xFF28BB67, 0xFF442617, 0xFF442617, 0xFFE94032, 0xFF00C6D7};
+    static final int[] PICKER_PALETTES = {0, 3, 2, 4, 1, 5, 10};
 
     static int pickerIndex(int palette) {
         int color = COLORS[palette(palette)];

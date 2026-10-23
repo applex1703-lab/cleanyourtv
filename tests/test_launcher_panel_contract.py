@@ -19,6 +19,7 @@ class LauncherPanelContractTest(unittest.TestCase):
                           "@+id/animationsChoice", "@+id/rows0", "@+id/panelClose", "@+id/settingsTabs"}.intersection(ids))
         self.assertIn("@+id/backgroundScope", section_ids)
         self.assertNotIn("@+id/panelTitle", ids)
+        self.assertNotIn("@style/SettingsCard", {n.get("style") for n in root.iter()})
 
     def test_launcher_button_follows_system_settings(self):
         root = ET.parse(ROOT / "res/layout/activity_main.xml").getroot()
