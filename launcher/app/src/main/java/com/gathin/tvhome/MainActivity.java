@@ -550,6 +550,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             if (MainActivity.this.dockRow && cfg.dockTitle && rowsBelowDock > 0) want = Math.max(want, (int) (AppAdapter.TITLE_ROOM_DP * density));
             // No dock to push down: the grid starts at the top, with room for the first row's zoom and glass.
             if (!MainActivity.this.dockRow) want = (int) (AppAdapter.TOP_ROOM_DP * density);
+            else want += Math.round(6 * density); // reference dock baseline, including its decoration inset
             if (grid.getPaddingTop() != want) {
                 grid.setPadding(grid.getPaddingLeft(), want, grid.getPaddingRight(), grid.getPaddingBottom());
             }
@@ -1631,7 +1632,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         int rowScroll = 0;
         if (dockRow && !reordering) {
             View item = (View) card.getParent();
-            int dy = item.getTop() - Math.round(12 * density) - grid.getPaddingTop();
+            int dy = item.getTop() - Math.round(6 * density) - grid.getPaddingTop();
             // A horizontal focus move must not interrupt the running highlight/row animation.
             if (Math.abs(dy) > 1) {
                 grid.stopScroll();
