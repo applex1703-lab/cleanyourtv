@@ -672,12 +672,10 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
                 focusTile(lastFocused % COLUMNS);
                 return true;
             }
-            int firstButton = btnInputs.getVisibility() == View.VISIBLE ? R.id.btnInputs : firstTopButton().getId();
-            int rightButton = lastTopButton().getId();
-            int leftButton = rtlMenuBar ? rightButton : firstButton;
-            if (rtlMenuBar) rightButton = firstButton;
-            if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT) return v.getId() == leftButton;
-            return keyCode == KeyEvent.KEYCODE_DPAD_RIGHT && v.getId() == rightButton;
+            if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT || keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
+                return moveTopFocus(v, keyCode, rtlMenuBar);
+            }
+            return false;
         };
         btnInputs.setOnKeyListener(pillKeys);
         btnWifi.setOnKeyListener(pillKeys);
@@ -2280,6 +2278,23 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         if (btnLauncherPanel.getVisibility() == View.VISIBLE) return btnLauncherPanel;
         View settings = findViewById(R.id.btnSettings);
         return settings.getVisibility() == View.VISIBLE ? settings : firstTopButton();
+    }
+
+    /** Moves only among visible top-bar controls; grid column changes must not affect this focus path. */
+    private boolean moveTopFocus(View current, int keyCode, boolean rtl) {
+        View[] controls = {btnInputs, btnWifi, btnReorder, btnReorderSave, btnReorderCancel,
+                btnLibraryTop, findViewById(R.id.btnSettings), btnLauncherPanel};
+        ArrayList<View> visible = new ArrayList<>();
+        for (View control : controls) {
+            if (control.getVisibility() == View.VISIBLE && control.isFocusable()) visible.add(control);
+        }
+        int index = visible.indexOf(current);
+        if (index < 0) return true;
+        boolean towardRight = keyCode == KeyEvent.KEYCODE_DPAD_RIGHT;
+        int step = (towardRight ^ rtl) ? 1 : -1;
+        int target = index + step;
+        if (target >= 0 && target < visible.size()) visible.get(target).requestFocus();
+        return true;
     }
 
     @Override public void onLibraryUp() {
