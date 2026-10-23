@@ -27,7 +27,6 @@
         <LinearLayout android:id="@+id/settingsTabs" android:layout_width="match_parent" android:layout_height="48dp" android:layout_marginTop="10dp">
             <TextView android:id="@+id/tabLayout" style="@style/SettingsTab" android:text="@string/settings_tab_layout" />
             <TextView android:id="@+id/tabAppearance" style="@style/SettingsTab" android:text="@string/settings_tab_appearance" />
-            <TextView android:id="@+id/tabMotion" style="@style/SettingsTab" android:text="@string/settings_tab_motion" />
             <TextView android:id="@+id/tabApps" style="@style/SettingsTab" android:text="@string/settings_tab_apps" />
         </LinearLayout>
 
@@ -41,13 +40,6 @@
                         <TextView android:id="@+id/columns6" style="@style/SettingsColumnChoice" android:text="6" />
                         <TextView android:id="@+id/columns7" style="@style/SettingsColumnChoice" android:text="7" />
                     </LinearLayout>
-                    <TextView android:id="@+id/rowsLabel" style="@style/SettingsSectionLabel" android:text="@string/rows_below_dock_label" />
-                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
-                        <TextView android:id="@+id/rows0" style="@style/SettingsColumnChoice" android:text="0" />
-                        <TextView android:id="@+id/rows1" style="@style/SettingsColumnChoice" android:text="1" />
-                        <TextView android:id="@+id/rows2" style="@style/SettingsColumnChoice" android:text="2" />
-                        <TextView android:id="@+id/rows3" style="@style/SettingsColumnChoice" android:text="3" />
-                    </LinearLayout>
                 </LinearLayout>
                 <LinearLayout android:id="@+id/appearanceTabContent" style="@style/SettingsSection" android:visibility="gone">
                     <TextView android:id="@+id/dockOpacityLabel" style="@style/SettingsSectionLabel" android:text="@string/dock_opacity_label" />
@@ -58,19 +50,9 @@
                         <TextView android:id="@+id/dock30" style="@style/SettingsColumnChoice" android:text="30%" />
                     </LinearLayout>
                     <TextView android:id="@+id/wallpaperChoice" style="@style/SettingsRow" android:layout_marginTop="14dp" />
-                    <TextView android:id="@+id/followThemeChoice" style="@style/SettingsRow" android:layout_marginTop="20dp" android:text="@string/follow_theme" />
-                    <TextView android:id="@+id/followThemeHint" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:text="@string/follow_theme_hint" android:textColor="#FFACB8C1" android:textSize="12sp" />
-                </LinearLayout>
-                <LinearLayout android:id="@+id/motionTabContent" style="@style/SettingsSection" android:visibility="gone">
-                    <Switch android:id="@+id/animationsChoice" style="@style/SettingsSwitch" android:layout_marginTop="8dp" android:text="@string/animations_label" />
-                    <Switch android:id="@+id/advancedChoice" style="@style/SettingsSwitch" android:layout_marginTop="10dp" android:text="@string/advanced_effects" />
-                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="@string/advanced_effects_warning" android:textColor="#FFACB8C1" android:textSize="13sp" />
                 </LinearLayout>
                 <LinearLayout android:id="@+id/appsTabContent" style="@style/SettingsSection" android:visibility="gone">
                     <TextView android:id="@+id/reorderPanelChoice" style="@style/SettingsRow" android:text="@string/reorder" />
-                    <TextView android:id="@+id/dockEditPanelChoice" style="@style/SettingsRow" android:layout_marginTop="10dp" android:text="@string/dock_edit" />
-                    <TextView android:id="@+id/tvSettingsChoice" style="@style/SettingsRow" android:layout_marginTop="24dp" android:text="@string/tv_settings" />
-                    <TextView android:id="@+id/defaultHomeChoice" style="@style/SettingsRow" android:layout_marginTop="10dp" android:text="@string/home_settings" />
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>

@@ -279,7 +279,6 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private AppLibraryDialog appLibrary;
     private boolean libraryFocusPending;
     private RecyclerView.OnScrollListener pendingFocusScroll;
-    private boolean preserveGridScrollOnFocus;
 
     private final Handler handler = new Handler(Looper.getMainLooper());
     /** Refreshes the network pill when the connection changes: at boot Wi-Fi often connects after Home is shown. */
@@ -1690,9 +1689,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             showGlowOnly(position);
             // Scroll just enough so the whole glass (not only the tile) is visible.
             revealRect.set(0, -(int) pad * 2, item.getWidth(), item.getHeight() + (int) pad);
-            if (!preserveGridScrollOnFocus) grid.requestChildRectangleOnScreen(item, revealRect, reducedMotion);
+            grid.requestChildRectangleOnScreen(item, revealRect, reducedMotion);
         }
-        preserveGridScrollOnFocus = false;
     }
 
     /** Refits the glass to the focused holder once the grid layout and tile dimensions settle. */
@@ -1976,6 +1974,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
      * name above the dock does not show (every grid tile has its name underneath).
      */
     private void showGlowOnly(int position) {
+        int color = adapter.ambientColorAt(position);
         stopAmbientAnimation();
         hero.animate().cancel();
         ambient.animate().cancel();
@@ -1983,9 +1982,20 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         heroArt.animate().cancel();
         heroArt.setAlpha(0f);
         heroShown = false;
-        // The ambient glow belongs to the dock shelf; rows below it keep the original plain background.
-        if (animations && !reducedMotion) ambient.animate().alpha(0f).setDuration(180).start();
-        else ambient.setAlpha(0f);
+        if (!ambientGlow) return;
+        if (!animations || reducedMotion) {
+            setAmbient(color);
+            ambient.setAlpha(1f);
+            return;
+        }
+        if (color == ambientColor && ambient.getBackground() != null) {
+            ambient.animate().alpha(1f).setDuration(300).start();
+            return;
+        }
+        ambient.animate().alpha(0.35f).setDuration(ambient.getAlpha() > 0.35f ? 200 : 0).withEndAction(() -> {
+            setAmbient(color);
+            ambient.animate().alpha(1f).setDuration(500).start();
+        }).start();
     }
 
     private void hideHero() {
@@ -2225,7 +2235,6 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         if (keyCode == KeyEvent.KEYCODE_DPAD_UP) {
             if (position < COLUMNS) return false;          // dock row: let focus move to the top bar
             target = position - COLUMNS;
-            preserveGridScrollOnFocus = true;
         } else {
             int lastRowStart = ((count - 1) / COLUMNS) * COLUMNS;
             if (position >= lastRowStart) {
