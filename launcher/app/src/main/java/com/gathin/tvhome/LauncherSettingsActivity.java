@@ -282,10 +282,10 @@ public final class LauncherSettingsActivity extends Activity {
                 return true;
             }
             if (event.getAction() != android.view.KeyEvent.ACTION_DOWN) return false;
-            int direction = keyCode == android.view.KeyEvent.KEYCODE_DPAD_LEFT ? View.FOCUS_LEFT
-                    : keyCode == android.view.KeyEvent.KEYCODE_DPAD_RIGHT ? View.FOCUS_RIGHT : 0;
-            if (direction != 0) {
-                View next = view.focusSearch(direction);
+            if (keyCode == android.view.KeyEvent.KEYCODE_DPAD_LEFT
+                    || keyCode == android.view.KeyEvent.KEYCODE_DPAD_RIGHT) {
+                View next = keyCode == android.view.KeyEvent.KEYCODE_DPAD_LEFT
+                        ? view.focusSearch(View.FOCUS_LEFT) : view.focusSearch(View.FOCUS_RIGHT);
                 for (TextView choice : choices) {
                     if (next == choice) {
                         choice.requestFocus();
