@@ -48,8 +48,8 @@
                     <TextView android:id="@+id/wallpaperChoice" style="@style/SettingsRow" android:layout_marginTop="14dp" />
                     <TextView android:id="@+id/reorderPanelChoice" style="@style/SettingsRow" android:layout_marginTop="14dp" android:text="@string/reorder" />
                 </LinearLayout>
-                <LinearLayout android:id="@+id/appearanceTabContent" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" />
-                <LinearLayout android:id="@+id/appsTabContent" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" />
+                <LinearLayout android:id="@+id/appearanceTabContent" android:layout_width="0dp" android:layout_height="0dp" android:orientation="vertical" android:visibility="gone" />
+                <LinearLayout android:id="@+id/appsTabContent" android:layout_width="0dp" android:layout_height="0dp" android:orientation="vertical" android:visibility="gone" />
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
