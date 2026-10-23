@@ -16,7 +16,8 @@ class LauncherPanelContractTest(unittest.TestCase):
         self.assertTrue({"@+id/columns4", "@+id/dock100", "@+id/wallpaperChoice",
                          "@+id/reorderPanelChoice"}.issubset(section_ids))
         self.assertFalse({"@+id/tabApps", "@+id/tabAppearance", "@+id/tabMotion",
-                          "@+id/animationsChoice", "@+id/rows0"}.intersection(ids))
+                          "@+id/animationsChoice", "@+id/rows0", "@+id/panelClose", "@+id/settingsTabs"}.intersection(ids))
+        self.assertIn("@+id/backgroundScope", section_ids)
 
     def test_launcher_button_follows_system_settings(self):
         root = ET.parse(ROOT / "res/layout/activity_main.xml").getroot()

@@ -153,4 +153,21 @@
     <!-- Cinematic top shelf (cinematic_home): the line under the focused dock app's name; %1$s is when it was
          last opened, e.g. "5 minutes ago" or "yesterday, 9:40 pm". -->
     <string name="last_opened">Последний запуск: %1$s</string>
+    <string name="background_title">Фон</string>
+    <string name="background_image">Своё изображение</string>
+    <string name="background_colors">Цвета</string>
+    <string name="background_auto">Из выбранного приложения</string>
+    <string name="background_blue">Морской синий</string>
+    <string name="background_purple">Фиолетовые сумерки</string>
+    <string name="background_teal">Лесной бирюзовый</string>
+    <string name="background_amber">Тёплый закат</string>
+    <string name="background_rose">Розовое сияние</string>
+    <string name="background_scope">Показывать фон</string>
+    <string name="background_dock">Только на панели</string>
+    <string name="background_always">Всегда</string>
+    <string name="background_current">Фон: %1$s</string>
+    <string name="background_no_picker">Нет приложения для выбора изображений. Включите проводник с поддержкой выбора файлов с ТВ или USB.</string>
+    <string name="background_loading">Сохранение изображения…</string>
+    <string name="background_failed">Не удалось использовать изображение. Выберите поддерживаемую картинку размером до 20 МБ.</string>
+    <string name="settings_back_hint">Изменения сохраняются автоматически · Назад — закрыть</string>
 </resources>

@@ -3,6 +3,11 @@ package com.gathin.tvhome;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.ActivityNotFoundException;
+import android.graphics.BitmapFactory;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.widget.Toast;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -13,6 +18,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,12 +35,11 @@ public final class LauncherSettingsActivity extends Activity {
     private final TextView[] dockChoices = new TextView[DOCK_OPACITIES.length];
     private SharedPreferences choices;
     private TextView wallpaperChoice;
-    private View[] tabs;
-    private View[] tabContents;
-    private View panelClose;
+    private TextView backgroundScope;
+    private static final int PICK_IMAGE = 42;
+    private boolean importing;
     private int columns;
     private int dockOpacity;
-    private int tabIndex;
 
     @Override
     protected void onCreate(Bundle state) {
@@ -46,48 +52,10 @@ public final class LauncherSettingsActivity extends Activity {
                 Math.max(Math.round(280 * density), getResources().getDisplayMetrics().widthPixels - Math.round(40 * density)));
         panel.setLayoutParams(panelParams);
 
-        panelClose = findViewById(R.id.panelClose);
-        panelClose.setOnClickListener(v -> finish());
         findViewById(R.id.settingsScrim).setOnClickListener(v -> finish());
         panel.setOnClickListener(v -> { });
-
-        tabs = new View[]{findViewById(R.id.tabLayout)};
-        tabContents = new View[]{findViewById(R.id.layoutTabContent)};
         boolean rtl = getResources().getBoolean(R.bool.rtl_menu_bar);
-        for (int i = 0; i < tabs.length; i++) {
-            final int index = i;
-            tabs[i].setOnClickListener(v -> showTab(index));
-            tabs[i].setOnKeyListener((v, key, event) -> {
-                if (event.getAction() != android.view.KeyEvent.ACTION_DOWN) return false;
-                int direction = key == android.view.KeyEvent.KEYCODE_DPAD_LEFT ? -1
-                        : key == android.view.KeyEvent.KEYCODE_DPAD_RIGHT ? 1 : 0;
-                if (rtl) direction = -direction;
-                if (direction != 0) {
-                    int next = index + direction;
-                    if (next >= 0 && next < tabs.length) tabs[next].requestFocus();
-                    return true;
-                }
-                if (key == android.view.KeyEvent.KEYCODE_DPAD_DOWN) return firstFocusable(tabContents[index]);
-                if (key == android.view.KeyEvent.KEYCODE_DPAD_UP) {
-                    panelClose.requestFocus();
-                    return true;
-                }
-                return false;
-            });
-            tabs[i].setMinimumWidth(Math.round(92 * density));
-        }
-        panelClose.setOnKeyListener((v, key, event) -> {
-            if (event.getAction() != android.view.KeyEvent.ACTION_DOWN) return false;
-            if (key == android.view.KeyEvent.KEYCODE_DPAD_DOWN) {
-                tabs[tabIndex].requestFocus();
-                return true;
-            }
-            return key == android.view.KeyEvent.KEYCODE_DPAD_UP
-                    || key == android.view.KeyEvent.KEYCODE_DPAD_LEFT
-                    || key == android.view.KeyEvent.KEYCODE_DPAD_RIGHT;
-        });
         if (rtl) {
-            ((LinearLayout) findViewById(R.id.settingsTabs)).setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
             panelParams.gravity = Gravity.START;
             panel.setLayoutParams(panelParams);
         }
@@ -134,27 +102,27 @@ public final class LauncherSettingsActivity extends Activity {
         wallpaperChoice = findViewById(R.id.wallpaperChoice);
         wallpaperChoice.setOnClickListener(v -> showWallpaperPicker());
         wallpaperChoice.setOnKeyListener(this::activateOnCenter);
+        backgroundScope = findViewById(R.id.backgroundScope);
+        backgroundScope.setOnClickListener(v -> new AlertDialog.Builder(this)
+                .setTitle(R.string.background_scope)
+                .setSingleChoiceItems(new String[]{getString(R.string.background_dock), getString(R.string.background_always)},
+                        choices.getBoolean(BackgroundChoice.ALWAYS, false) ? 1 : 0, (dialog, which) -> {
+                            choices.edit().putBoolean(BackgroundChoice.ALWAYS, which == 1).apply();
+                            changed();
+                            refresh();
+                            dialog.dismiss();
+                        }).show());
+        backgroundScope.setOnKeyListener(this::activateOnCenter);
         View reorder = findViewById(R.id.reorderPanelChoice);
         reorder.setOnClickListener(v -> startReorder(false));
         reorder.setOnKeyListener(this::activateOnCenter);
 
-        showTab(0);
         refresh();
         if (getIntent().getBooleanExtra(EXTRA_OPEN_APPS_TAB, false)) {
-            showTab(0);
             reorder.requestFocus();
         } else {
-            tabs[0].requestFocus();
+            columnChoices[0].requestFocus();
         }
-    }
-
-    private void showTab(int selected) {
-        tabIndex = selected;
-        for (int i = 0; i < tabs.length; i++) {
-            tabs[i].setSelected(i == selected);
-            tabContents[i].setVisibility(i == selected ? View.VISIBLE : View.GONE);
-        }
-        ((TextView) findViewById(R.id.panelTitle)).setText(R.string.settings_tab_layout);
     }
 
     private boolean firstFocusable(View view) {
@@ -202,35 +170,103 @@ public final class LauncherSettingsActivity extends Activity {
     }
 
     private void showWallpaperPicker() {
-        File dir = Config.dir(this);
-        List<File> images = new ArrayList<>(WallpaperRotation.images(dir == null ? null : new File(dir, "wallpapers")));
-        File single = dir == null ? null : new File(dir, Config.WALLPAPER_NAME);
-        if (single != null && single.isFile()) images.add(0, single);
-        String[] labels = new String[images.size() + 1];
-        for (int i = 0; i < images.size(); i++) labels[i] = images.get(i).getName();
-        labels[images.size()] = getString(R.string.wallpaper_none);
-        String current = choices.getString(Config.WALLPAPER_CHOICE_KEY, null);
-        int checked = "none".equals(current) ? images.size() : indexOf(images, current);
-        new AlertDialog.Builder(this).setTitle(R.string.wallpaper_label)
-                .setSingleChoiceItems(labels, checked, (dialog, which) -> {
+        if (importing) return;
+        new AlertDialog.Builder(this).setTitle(R.string.background_title)
+                .setItems(new String[]{getString(R.string.background_image), getString(R.string.background_colors)}, (dialog, which) -> {
                     dialog.dismiss();
-                    choices.edit().putString(Config.WALLPAPER_CHOICE_KEY,
-                            which == images.size() ? "none" : images.get(which).getName()).apply();
-                    changed();
-                    refresh();
-                })
-                .setNeutralButton(R.string.wallpaper_theme_default, (dialog, which) -> {
-                    choices.edit().remove(Config.WALLPAPER_CHOICE_KEY).apply();
-                    changed();
-                    refresh();
-                })
-                .setNegativeButton(android.R.string.cancel, null).show();
+                    if (which == 0) {
+                        try {
+                            startActivityForResult(new Intent(Intent.ACTION_OPEN_DOCUMENT)
+                                    .addCategory(Intent.CATEGORY_OPENABLE).setType("image/*"), PICK_IMAGE);
+                        } catch (ActivityNotFoundException | SecurityException e) {
+                            Toast.makeText(this, R.string.background_no_picker, Toast.LENGTH_LONG).show();
+                        }
+                    } else showColors();
+                }).show();
     }
 
-    private static int indexOf(List<File> files, String name) {
-        if (name == null) return -1;
-        for (int i = 0; i < files.size(); i++) if (files.get(i).getName().equals(name)) return i;
-        return -1;
+    private String[] colorLabels() {
+        return new String[]{getString(R.string.background_auto), getString(R.string.background_blue),
+                getString(R.string.background_purple), getString(R.string.background_teal),
+                getString(R.string.background_amber), getString(R.string.background_rose)};
+    }
+
+    private void showColors() {
+        new AlertDialog.Builder(this).setTitle(R.string.background_colors)
+                .setSingleChoiceItems(colorLabels(), BackgroundChoice.palette(choices.getInt(BackgroundChoice.PALETTE, 0)),
+                        (dialog, which) -> {
+                            choices.edit().putString(BackgroundChoice.MODE, "colors")
+                                    .putInt(BackgroundChoice.PALETTE, which).apply();
+                            changed();
+                            refresh();
+                            dialog.dismiss();
+                        }).show();
+    }
+
+    @Override
+    protected void onActivityResult(int request, int result, Intent data) {
+        super.onActivityResult(request, result, data);
+        if (request != PICK_IMAGE || result != RESULT_OK || data == null || data.getData() == null) return;
+        Uri uri = data.getData();
+        importing = true;
+        wallpaperChoice.setEnabled(false);
+        Toast.makeText(this, R.string.background_loading, Toast.LENGTH_SHORT).show();
+        // Copy under the temporary URI grant; no persisted grant or broad storage permission is needed.
+        new Thread(() -> {
+            File temporary = new File(getFilesDir(), BackgroundChoice.IMAGE + ".tmp");
+            boolean success = false;
+            try {
+                try (InputStream in = getContentResolver().openInputStream(uri);
+                     FileOutputStream out = new FileOutputStream(temporary)) {
+                    if (in == null) throw new java.io.IOException("No image stream");
+                    byte[] buffer = new byte[16384];
+                    int count, total = 0;
+                    while ((count = in.read(buffer)) != -1) {
+                        total += count;
+                        if (total > 20 * 1024 * 1024) throw new java.io.IOException("Image too large");
+                        out.write(buffer, 0, count);
+                    }
+                }
+                BitmapFactory.Options bounds = new BitmapFactory.Options();
+                bounds.inJustDecodeBounds = true;
+                BitmapFactory.decodeFile(temporary.getPath(), bounds);
+                if (bounds.outWidth <= 0 || bounds.outHeight <= 0 || bounds.outWidth > 16384 || bounds.outHeight > 16384)
+                    throw new java.io.IOException("Unsupported image");
+                BitmapFactory.Options decode = new BitmapFactory.Options();
+                decode.inSampleSize = 1;
+                while (bounds.outWidth / decode.inSampleSize > 2048 || bounds.outHeight / decode.inSampleSize > 2048)
+                    decode.inSampleSize *= 2;
+                decode.inPreferredConfig = Bitmap.Config.RGB_565;
+                Bitmap bitmap = BitmapFactory.decodeFile(temporary.getPath(), decode);
+                if (bitmap == null) throw new java.io.IOException("Unreadable image");
+                File normalized = new File(getFilesDir(), BackgroundChoice.IMAGE + ".ready");
+                try (FileOutputStream out = new FileOutputStream(normalized)) {
+                    if (!bitmap.compress(Bitmap.CompressFormat.JPEG, 90, out))
+                        throw new java.io.IOException("Cannot encode image");
+                } finally {
+                    bitmap.recycle();
+                }
+                if (!normalized.renameTo(new File(getFilesDir(), BackgroundChoice.IMAGE)))
+                    throw new java.io.IOException("Cannot save image");
+                temporary.delete();
+                choices.edit().putString(BackgroundChoice.MODE, "image").apply();
+                choices.edit().putLong(Config.SETTINGS_REVISION_KEY,
+                        choices.getLong(Config.SETTINGS_REVISION_KEY, 0) + 1).apply();
+                success = true;
+            } catch (Exception e) {
+                temporary.delete();
+                new File(getFilesDir(), BackgroundChoice.IMAGE + ".ready").delete();
+            }
+            boolean saved = success;
+            runOnUiThread(() -> {
+                importing = false;
+                if (isFinishing() || isDestroyed()) return;
+                wallpaperChoice.setEnabled(true);
+                if (saved) setResult(RESULT_OK);
+                else Toast.makeText(this, R.string.background_failed, Toast.LENGTH_LONG).show();
+                refresh();
+            });
+        }, "WallpaperImport").start();
     }
 
     private void changed() {
@@ -242,9 +278,11 @@ public final class LauncherSettingsActivity extends Activity {
     private void refresh() {
         for (int i = 0; i < columnChoices.length; i++) columnChoices[i].setSelected(columns == i + 4);
         for (int i = 0; i < dockChoices.length; i++) dockChoices[i].setSelected(dockOpacity == DOCK_OPACITIES[i]);
-        String choice = choices.getString(Config.WALLPAPER_CHOICE_KEY, null);
-        wallpaperChoice.setText(getString(R.string.wallpaper_state, "none".equals(choice)
-                ? getString(R.string.wallpaper_none) : choice != null ? choice : getString(R.string.wallpaper_theme_default)));
+        String label = "image".equals(choices.getString(BackgroundChoice.MODE, "colors"))
+                ? getString(R.string.background_image) : colorLabels()[BackgroundChoice.palette(choices.getInt(BackgroundChoice.PALETTE, 0))];
+        wallpaperChoice.setText(getString(R.string.background_current, label));
+        backgroundScope.setText(choices.getBoolean(BackgroundChoice.ALWAYS, false)
+                ? R.string.background_always : R.string.background_dock);
     }
 
     @Override

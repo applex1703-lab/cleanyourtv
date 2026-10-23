@@ -145,6 +145,9 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     /** config.xml ambient_glow, overridable by a theme. Off: the glow view is gone and no fade or colour animator
      *  is started for it, so a focus move costs nothing extra on a launcher that runs all day. */
     private boolean ambientGlow;
+    private boolean backgroundAlways;
+    private boolean backgroundImage;
+    private int backgroundPalette;
     /** config.xml app_glow: the highlight takes the focused app's colour on every tile. */
     private boolean appGlow;
     /** config.xml glow_style: the shape setAmbient paints the glow mask in. */
@@ -409,6 +412,11 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         // a fade renders it into a full-screen offscreen buffer first.
         ambient.forceHasOverlappingRendering(false);
         ambientGlow = cfg.ambientGlow;
+        SharedPreferences backgroundChoices = getSharedPreferences(Config.SETTINGS_NAME, MODE_PRIVATE);
+        backgroundAlways = backgroundChoices.getBoolean(BackgroundChoice.ALWAYS, false);
+        backgroundImage = "image".equals(backgroundChoices.getString(BackgroundChoice.MODE, "colors"));
+        backgroundPalette = BackgroundChoice.palette(backgroundChoices.getInt(BackgroundChoice.PALETTE, 0));
+        if (backgroundChoices.contains(BackgroundChoice.MODE)) ambientGlow = !backgroundImage;
         appGlow = cfg.appGlow;
         if (!ambientGlow) ambient.setVisibility(View.GONE);
         heroName = findViewById(R.id.heroName);
@@ -1723,8 +1731,9 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     // ---- top shelf -------------------------------------------------------------------------------
 
     private void showHero(int position, float dockTopInRoot) {
+        wallpaperPlayer.setVisible(true);
         String label = adapter.labelAt(position);
-        int color = adapter.ambientColorAt(position);
+        int color = BackgroundChoice.color(backgroundPalette, adapter.ambientColorAt(position));
         float y = dockTopInRoot - 14 * density - 26 * density - hero.getHeight();
         boolean changed = !label.contentEquals(heroName.getText());
         if (cinematic) showHeroArt(position);
@@ -1985,6 +1994,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
      * name above the dock does not show (every grid tile has its name underneath).
      */
     private void showGlowOnly(int position) {
+        wallpaperPlayer.setVisible(backgroundAlways);
         stopAmbientAnimation();
         hero.animate().cancel();
         ambient.animate().cancel();
@@ -1992,6 +2002,15 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         heroArt.animate().cancel();
         heroArt.setAlpha(0f);
         heroShown = false;
+        if (backgroundAlways && ambientGlow && !backgroundImage) {
+            int color = BackgroundChoice.color(backgroundPalette, adapter.ambientColorAt(position));
+            if (animations && !reducedMotion) transitionAmbient(color);
+            else {
+                setAmbient(color);
+                ambient.setAlpha(1f);
+            }
+            return;
+        }
         if (animations && !reducedMotion) ambient.animate().alpha(0f).setDuration(180).start();
         else ambient.setAlpha(0f);
     }

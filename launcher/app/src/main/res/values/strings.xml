@@ -153,4 +153,21 @@
     <!-- Cinematic top shelf (cinematic_home): the line under the focused dock app's name; %1$s is when it was
          last opened, e.g. "5 minutes ago" or "yesterday, 9:40 pm". -->
     <string name="last_opened">Last opened %1$s</string>
+    <string name="background_title">Background</string>
+    <string name="background_image">Your image</string>
+    <string name="background_colors">Colors</string>
+    <string name="background_auto">From the selected app</string>
+    <string name="background_blue">Ocean blue</string>
+    <string name="background_purple">Violet dusk</string>
+    <string name="background_teal">Forest teal</string>
+    <string name="background_amber">Warm sunset</string>
+    <string name="background_rose">Rose glow</string>
+    <string name="background_scope">Show background</string>
+    <string name="background_dock">Only on the dock</string>
+    <string name="background_always">Always</string>
+    <string name="background_current">Background: %1$s</string>
+    <string name="background_no_picker">No image picker is available. Install or enable a document picker to choose an image from TV or USB.</string>
+    <string name="background_loading">Saving image…</string>
+    <string name="background_failed">Cannot use this image. Choose a supported image under 20 MB.</string>
+    <string name="settings_back_hint">Changes are saved automatically · Back to close</string>
 </resources>

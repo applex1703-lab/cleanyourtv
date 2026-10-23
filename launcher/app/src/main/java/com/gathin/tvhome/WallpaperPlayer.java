@@ -54,6 +54,13 @@ final class WallpaperPlayer {
     WallpaperPlayer(Context context, FrameLayout root, Config config) {
         this.root = root;
         files = new ArrayList<>(config.wallpapers);
+        SharedPreferences background = context.getSharedPreferences(Config.SETTINGS_NAME, Context.MODE_PRIVATE);
+        String mode = background.getString(BackgroundChoice.MODE, "colors");
+        if (background.contains(BackgroundChoice.MODE)) {
+            files.clear();
+            File custom = new File(context.getFilesDir(), BackgroundChoice.IMAGE);
+            if ("image".equals(mode) && custom.isFile()) files.add(custom);
+        }
         interval = config.wallpaperRotationMinutes * 60_000L;
         bitmapConfig = config.wallpaperTrueColor ? Bitmap.Config.ARGB_8888 : Bitmap.Config.RGB_565;
         // The dim is painted into the picture (decode), so no full-screen shade layer is drawn on every frame.
@@ -76,7 +83,7 @@ final class WallpaperPlayer {
         names = config.wallpaperCaptions && config.wallpaperEnabled && !files.isEmpty()
                 ? WallpaperCaptions.read(files.get(0).getParentFile()) : Collections.emptyMap();
         caption = names.isEmpty() ? null : makeCaption(context, root);
-        if (config.wallpaperEnabled && !files.isEmpty()) {
+        if ((config.wallpaperEnabled || "image".equals(mode)) && !files.isEmpty()) {
             root.addView(image, 0, new FrameLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
             showFirst();
@@ -118,6 +125,14 @@ final class WallpaperPlayer {
 
     void stop() {
         active = false;
+    }
+
+    /** Scope applies to the wallpaper layer, never to the tiles or their geometry. */
+    void setVisible(boolean visible) {
+        image.setVisibility(visible ? View.VISIBLE : View.INVISIBLE);
+        if (!visible && current != null) root.setBackgroundColor(0xFF000000);
+        else if (visible && current != null) root.setBackground(null);
+        if (caption != null) caption.setVisibility(visible ? View.VISIBLE : View.INVISIBLE);
     }
 
     void close() {
