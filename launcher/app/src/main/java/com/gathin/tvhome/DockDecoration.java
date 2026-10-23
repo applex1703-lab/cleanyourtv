@@ -63,6 +63,12 @@ public class DockDecoration extends RecyclerView.ItemDecoration {
         return Math.max(0f, Math.min(gap, roomPx));
     }
 
+    /** Scaled card half-outset + glass halo + breathing space; bounded by the drawable grid. */
+    static float focusPaddingPx(int width, float scale, float density, float room) {
+        float required = width * (scale - 1f) / 2f + (6f + 4f) * density;
+        return Math.max(0f, Math.min(Math.max(22f * density, required), room - density));
+    }
+
     @Override
     public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent,
                                @NonNull RecyclerView.State state) {
@@ -103,8 +109,8 @@ public class DockDecoration extends RecyclerView.ItemDecoration {
         // 1dp edge line, inside the grid; the top and bottom have room.
         // 22dp at the sides (the grid's 10dp padding makes room): a focused first or last tile grows about 7dp
         // outwards and still keeps about the band's top margin from its rounded end.
-        float sidePad = 22 * density;
-        float side = Math.max(0f, Math.min(sidePad, Math.min(rect.left, parent.getWidth() - rect.right) - density));
+        float scale = parent.getAdapter() instanceof AppAdapter ? ((AppAdapter) parent.getAdapter()).focusScale() : AppAdapter.FOCUS_SCALE;
+        float side = focusPaddingPx(cardWidth, scale, density, Math.min(rect.left, parent.getWidth() - rect.right));
         float radius = AppAdapter.cornerRadius(cardWidth, density);
         if (evenPadding) {
             // The same padding on all four sides, so the band's corners are concentric with the tiles' everywhere.

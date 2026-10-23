@@ -572,7 +572,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             @Override
             public void onScrolled(@NonNull RecyclerView rv, int dx, int dy) {
                 if (!glassShown) return;
-                if (dockRow && !reordering) return; // row animation moves beneath the fixed screen-space highlight
+                if (dockRow) return; // row animation moves beneath the fixed screen-space highlight, including reorder
                 glassTargetY -= dy;
                 glassScrollShift -= dy;
                 glass.setTranslationY(glass.getTranslationY() - dy);
@@ -1638,7 +1638,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         // Align the row before measuring the glass. Measuring first produces a stale Y target
         // and the visible jump/shrink when the grid scroll listener offsets the glass afterwards.
         int rowScroll = 0;
-        if (dockRow && !reordering) {
+        if (dockRow) {
             View item = (View) card.getParent();
             int dy = item.getTop() - Math.round(6 * density) - grid.getPaddingTop();
             // A horizontal focus move must not interrupt the running highlight/row animation.

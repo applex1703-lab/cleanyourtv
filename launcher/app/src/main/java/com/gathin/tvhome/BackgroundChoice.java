@@ -6,7 +6,9 @@ final class BackgroundChoice {
     static final String PALETTE = "background_palette";
     static final String ALWAYS = "background_always";
     static final String IMAGE = "custom-background";
-    static final int[] COLORS = {0, 0xFF3064AD, 0xFF7046A0, 0xFF248B80, 0xFFA85B34, 0xFFAD4267};
+    // Append only: stored palette indices from previous versions must retain their meaning.
+    static final int[] COLORS = {0, 0xFF3064AD, 0xFF7046A0, 0xFF248B80, 0xFFA85B34, 0xFFAD4267,
+            0xFF458EB5, 0xFF464D9B, 0xFF247653, 0xFF778243, 0xFFAA873D, 0xFF80364E, 0xFF57616E};
 
     private BackgroundChoice() { }
 

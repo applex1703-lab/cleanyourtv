@@ -170,4 +170,11 @@
     <string name="background_loading">Сохранение изображения…</string>
     <string name="background_failed">Не удалось использовать изображение. Выберите поддерживаемую картинку размером до 20 МБ.</string>
     <string name="settings_back_hint">Изменения сохраняются автоматически · Назад — закрыть</string>
+    <string name="background_sky">Небесный</string>
+    <string name="background_indigo">Индиго</string>
+    <string name="background_emerald">Изумрудный</string>
+    <string name="background_olive">Оливковый</string>
+    <string name="background_gold">Мягкое золото</string>
+    <string name="background_burgundy">Бордовый</string>
+    <string name="background_graphite">Графитовый</string>
 </resources>

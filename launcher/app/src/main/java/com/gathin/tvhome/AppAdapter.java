@@ -106,7 +106,9 @@ public class AppAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         // The installed reference launcher uses 180dp tiles at four columns.
         // Reserve space from the actual cell rather than shrinking that reference layout by 3dp.
         if (columns <= 4 && cell >= design + Math.round(12 * density)) return design;
-        int fit = (int) ((cell - 12 * density) / FOCUS_SCALE);
+        // Dense docks need room for the focused scale, 6dp glass halo and a 4dp gap
+        // before the band edge. Keep the verified four-column geometry unchanged.
+        int fit = (int) ((cell - (columns > 4 ? 24 : 12) * density) / FOCUS_SCALE);
         return Math.max(Math.round(80 * density), Math.min(design, fit));
     }
 

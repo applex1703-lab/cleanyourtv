@@ -188,12 +188,23 @@ public final class LauncherSettingsActivity extends Activity {
     private String[] colorLabels() {
         return new String[]{getString(R.string.background_auto), getString(R.string.background_blue),
                 getString(R.string.background_purple), getString(R.string.background_teal),
-                getString(R.string.background_amber), getString(R.string.background_rose)};
+                getString(R.string.background_amber), getString(R.string.background_rose),
+                getString(R.string.background_sky), getString(R.string.background_indigo),
+                getString(R.string.background_emerald), getString(R.string.background_olive),
+                getString(R.string.background_gold), getString(R.string.background_burgundy),
+                getString(R.string.background_graphite)};
     }
 
     private void showColors() {
+        String[] names = colorLabels();
+        android.text.SpannableString[] labels = new android.text.SpannableString[names.length];
+        for (int i = 0; i < names.length; i++) {
+            labels[i] = new android.text.SpannableString("●   " + names[i]);
+            labels[i].setSpan(new android.text.style.ForegroundColorSpan(i == 0 ? 0xFFE1E8EF : BackgroundChoice.COLORS[i]),
+                    0, 1, android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
         new AlertDialog.Builder(this).setTitle(R.string.background_colors)
-                .setSingleChoiceItems(colorLabels(), BackgroundChoice.palette(choices.getInt(BackgroundChoice.PALETTE, 0)),
+                .setSingleChoiceItems(labels, BackgroundChoice.palette(choices.getInt(BackgroundChoice.PALETTE, 0)),
                         (dialog, which) -> {
                             choices.edit().putString(BackgroundChoice.MODE, "colors")
                                     .putInt(BackgroundChoice.PALETTE, which).apply();

@@ -31,6 +31,12 @@ class LauncherPanelContractTest(unittest.TestCase):
         self.assertLess(method.index("grid.scrollBy(0, dy)"), method.index("root.offsetDescendantRectToMyCoords"))
         self.assertEqual(1, method.count("springY.animateToFinalPosition"))
 
+    def test_reorder_uses_the_same_row_alignment_as_home(self):
+        source = (ROOT / "java/com/gathin/tvhome/MainActivity.java").read_text(encoding="utf-8")
+        method = source.split("public void onTileFocused(", 1)[1].split("private void refitGlass(", 1)[0]
+        self.assertNotIn("dockRow && !reordering", method)
+        self.assertNotIn("settings_back_hint", (ROOT / "res/layout/activity_launcher_settings.xml").read_text())
+
 
 if __name__ == "__main__":
     unittest.main()

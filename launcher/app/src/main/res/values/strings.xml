@@ -170,4 +170,11 @@
     <string name="background_loading">Saving image…</string>
     <string name="background_failed">Cannot use this image. Choose a supported image under 20 MB.</string>
     <string name="settings_back_hint">Changes are saved automatically · Back to close</string>
+    <string name="background_sky">Sky blue</string>
+    <string name="background_indigo">Indigo</string>
+    <string name="background_emerald">Emerald</string>
+    <string name="background_olive">Olive</string>
+    <string name="background_gold">Soft gold</string>
+    <string name="background_burgundy">Burgundy</string>
+    <string name="background_graphite">Graphite</string>
 </resources>
