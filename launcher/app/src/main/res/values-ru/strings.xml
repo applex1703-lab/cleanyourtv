@@ -74,9 +74,6 @@
     <string name="settings_close">Закрыть настройки</string>
     <string name="reorder_save">Сохранить порядок</string>
     <string name="reorder_cancel">Отменить изменения</string>
-    <string name="reorder_undo">Отменить перемещение</string>
-    <string name="reorder_panel_hint">Выберите плитку и перемещайте её стрелками. Назад отменяет шаг; Сохранить подтверждает.</string>
-    <string name="reorder_save_confirm">Сохранить изменения порядка приложений?</string>
     <string name="columns_label">Приложений в ряду</string>
     <string name="dock_opacity_label">Непрозрачность панели дока</string>
     <string name="rows_below_dock_label">Рядов под доком</string>

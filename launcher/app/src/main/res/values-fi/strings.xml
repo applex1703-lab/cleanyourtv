@@ -33,9 +33,6 @@
     <string name="settings_close">Sulje asetukset</string>
     <string name="reorder_save">Tallenna järjestys</string>
     <string name="reorder_cancel">Hylkää muutokset</string>
-    <string name="reorder_undo">Kumoa siirto</string>
-    <string name="reorder_panel_hint">Valitse ruutu ja siirrä nuolilla. Takaisin kumoaa; Tallenna vahvistaa.</string>
-    <string name="reorder_save_confirm">Tallennetaanko sovellusten järjestyksen muutokset?</string>
     <string name="columns_label">Sovelluksia rivillä</string>
     <string name="dock_opacity_label">Telakkapalkin peittävyys</string>
     <string name="animations_state">Animaatiot: %1$s</string>

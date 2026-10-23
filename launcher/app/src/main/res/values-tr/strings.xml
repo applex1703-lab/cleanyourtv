@@ -57,9 +57,6 @@
     <string name="settings_close">Ayarları kapat</string>
     <string name="reorder_save">Sıralamayı kaydet</string>
     <string name="reorder_cancel">Değişiklikleri at</string>
-    <string name="reorder_undo">Taşımayı geri al</string>
-    <string name="reorder_panel_hint">Bir kutucuğu seçip oklarla taşıyın. Geri adımı geri alır; Kaydet onaylar.</string>
-    <string name="reorder_save_confirm">Uygulama sıralamasındaki değişiklikler kaydedilsin mi?</string>
     <string name="columns_label">Satır başına uygulama</string>
     <string name="dock_opacity_label">Dock bandı opaklığı</string>
     <string name="animations_state">Animasyonlar: %1$s</string>

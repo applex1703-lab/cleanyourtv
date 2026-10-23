@@ -35,9 +35,6 @@
     <string name="settings_close">Instellingen sluiten</string>
     <string name="reorder_save">Volgorde opslaan</string>
     <string name="reorder_cancel">Wijzigingen verwerpen</string>
-    <string name="reorder_undo">Verplaatsing ongedaan maken</string>
-    <string name="reorder_panel_hint">Selecteer een tegel en verplaats met de pijlen. Terug maakt ongedaan; Opslaan bevestigt.</string>
-    <string name="reorder_save_confirm">Wijzigingen in de appvolgorde opslaan?</string>
     <string name="columns_label">Apps per rij</string>
     <string name="dock_opacity_label">Dekking van de dockbalk</string>
     <string name="rows_below_dock_label">Rijen onder het dock</string>

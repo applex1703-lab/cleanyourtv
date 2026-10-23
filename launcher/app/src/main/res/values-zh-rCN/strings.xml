@@ -14,9 +14,6 @@
     <string name="settings_close">关闭设置</string>
     <string name="reorder_save">保存顺序</string>
     <string name="reorder_cancel">放弃更改</string>
-    <string name="reorder_undo">撤销移动</string>
-    <string name="reorder_panel_hint">选择应用磁贴并用方向键移动。返回撤销，保存确认。</string>
-    <string name="reorder_save_confirm">保存应用顺序更改？</string>
     <string name="columns_label">每行应用数量</string>
     <string name="dock_opacity_label">Dock 栏不透明度</string>
     <string name="animations_state">动态效果：%1$s</string>

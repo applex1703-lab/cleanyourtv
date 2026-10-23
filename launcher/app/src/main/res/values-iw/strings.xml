@@ -35,9 +35,6 @@
     <string name="settings_close">סגירת ההגדרות</string>
     <string name="reorder_save">שמירת הסדר</string>
     <string name="reorder_cancel">ביטול השינויים</string>
-    <string name="reorder_undo">ביטול ההעברה</string>
-    <string name="reorder_panel_hint">בחרו אריח והשתמשו בחצים להזזתו. חזרה מבטלת; שמירה מאשרת.</string>
-    <string name="reorder_save_confirm">לשמור את השינויים בסדר האפליקציות?</string>
     <string name="columns_label">אפליקציות בשורה</string>
     <string name="dock_opacity_label">אטימות פס ה-Dock</string>
     <string name="animations_state">הנפשות: %1$s</string>

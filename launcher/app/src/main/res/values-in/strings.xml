@@ -34,9 +34,6 @@
     <string name="settings_close">Tutup setelan</string>
     <string name="reorder_save">Simpan urutan</string>
     <string name="reorder_cancel">Buang perubahan</string>
-    <string name="reorder_undo">Urungkan pemindahan</string>
-    <string name="reorder_panel_hint">Pilih ubin lalu pindahkan dengan panah. Kembali membatalkan; Simpan mengonfirmasi.</string>
-    <string name="reorder_save_confirm">Simpan perubahan urutan aplikasi?</string>
     <string name="columns_label">App per baris</string>
     <string name="dock_opacity_label">Opasitas pita dock</string>
     <string name="rows_below_dock_label">Baris di bawah dock</string>

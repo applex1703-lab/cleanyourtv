@@ -35,9 +35,6 @@
     <string name="settings_close">關閉設定</string>
     <string name="reorder_save">儲存順序</string>
     <string name="reorder_cancel">放棄變更</string>
-    <string name="reorder_undo">復原移動</string>
-    <string name="reorder_panel_hint">選取磁貼並用方向鍵移動。返回可復原，儲存以確認。</string>
-    <string name="reorder_save_confirm">要儲存應用程式順序變更嗎？</string>
     <string name="columns_label">每列 app 數量</string>
     <string name="dock_opacity_label">Dock 列不透明度</string>
     <string name="animations_state">動畫效果：%1$s</string>

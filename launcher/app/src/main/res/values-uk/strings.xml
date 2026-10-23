@@ -52,9 +52,6 @@
     <string name="settings_close">Закрити налаштування</string>
     <string name="reorder_save">Зберегти порядок</string>
     <string name="reorder_cancel">Відкинути зміни</string>
-    <string name="reorder_undo">Скасувати переміщення</string>
-    <string name="reorder_panel_hint">Виберіть плитку та переміщуйте стрілками. Назад скасовує крок; Зберегти підтверджує.</string>
-    <string name="reorder_save_confirm">Зберегти зміни порядку застосунків?</string>
     <string name="columns_label">Застосунків у рядку</string>
     <string name="rows_below_dock_label">Рядків під доком</string>
     <string name="wallpaper_label">Шпалери</string>

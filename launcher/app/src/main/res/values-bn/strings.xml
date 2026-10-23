@@ -36,9 +36,6 @@
     <string name="settings_close">সেটিংস বন্ধ করুন</string>
     <string name="reorder_save">ক্রম সংরক্ষণ</string>
     <string name="reorder_cancel">পরিবর্তন বাতিল</string>
-    <string name="reorder_undo">সরানো পূর্বাবস্থায় ফেরান</string>
-    <string name="reorder_panel_hint">টাইল বেছে নিয়ে তীর দিয়ে সরান। Back পূর্বাবস্থায় ফেরায়; সংরক্ষণ নিশ্চিত করে।</string>
-    <string name="reorder_save_confirm">অ্যাপের ক্রমের পরিবর্তন সংরক্ষণ করবেন?</string>
     <string name="columns_label">প্রতি সারিতে অ্যাপ</string>
     <string name="dock_opacity_label">ডক বারের অস্বচ্ছতা</string>
     <string name="animations_state">অ্যানিমেশন: %1$s</string>

@@ -38,9 +38,6 @@
     <string name="settings_close">Zatvori podešavanja</string>
     <string name="reorder_save">Sačuvaj redosled</string>
     <string name="reorder_cancel">Odbaci izmene</string>
-    <string name="reorder_undo">Poništi pomeranje</string>
-    <string name="reorder_panel_hint">Izaberite pločicu i pomerajte je strelicama. Nazad poništava; Sačuvaj potvrđuje.</string>
-    <string name="reorder_save_confirm">Sačuvati izmene redosleda aplikacija?</string>
     <string name="columns_label">Aplikacija po redu</string>
     <string name="dock_opacity_label">Prozirnost trake doka</string>
     <string name="animations_state">Animacije: %1$s</string>

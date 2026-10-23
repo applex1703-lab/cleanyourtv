@@ -35,9 +35,6 @@
     <string name="settings_close">Sozlamalarni yopish</string>
     <string name="reorder_save">Tartibni saqlash</string>
     <string name="reorder_cancel">O‘zgarishlarni bekor qilish</string>
-    <string name="reorder_undo">Ko‘chirishni ortga qaytarish</string>
-    <string name="reorder_panel_hint">Plitkani tanlang va strelkalar bilan ko‘chiring. Orqaga qaytaradi; Saqlash tasdiqlaydi.</string>
-    <string name="reorder_save_confirm">Ilovalar tartibidagi o‘zgarishlar saqlansinmi?</string>
     <string name="columns_label">Qatordagi ilovalar</string>
     <string name="dock_opacity_label">Dock paneli noshaffofligi</string>
     <string name="rows_below_dock_label">Dock ostidagi qatorlar</string>

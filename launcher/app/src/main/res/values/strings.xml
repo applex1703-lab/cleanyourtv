@@ -53,9 +53,6 @@
     <string name="settings_close">Close settings</string>
     <string name="reorder_save">Save order</string>
     <string name="reorder_cancel">Discard changes</string>
-    <string name="reorder_undo">Undo move</string>
-    <string name="reorder_panel_hint">Select a tile, then use the arrows to move it. Back undoes; Save commits.</string>
-    <string name="reorder_save_confirm">Save the app order changes?</string>
     <string name="columns_label">Apps per row</string>
     <string name="rows_below_dock_label">Rows below dock</string>
     <string name="dock_opacity_label">Dock band opacity</string>

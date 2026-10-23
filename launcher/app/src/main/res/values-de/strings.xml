@@ -34,9 +34,6 @@
     <string name="settings_close">Einstellungen schließen</string>
     <string name="reorder_save">Reihenfolge speichern</string>
     <string name="reorder_cancel">Änderungen verwerfen</string>
-    <string name="reorder_undo">Verschieben rückgängig</string>
-    <string name="reorder_panel_hint">Kachel auswählen und mit den Pfeilen verschieben. Zurück macht den Schritt rückgängig; Speichern bestätigt.</string>
-    <string name="reorder_save_confirm">Änderungen an der App-Reihenfolge speichern?</string>
     <string name="columns_label">Apps pro Zeile</string>
     <string name="dock_opacity_label">Deckkraft der Dock-Leiste</string>
     <string name="animations_state">Animationen: %1$s</string>

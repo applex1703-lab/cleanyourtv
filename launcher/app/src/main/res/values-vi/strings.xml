@@ -34,9 +34,6 @@
     <string name="settings_close">Đóng cài đặt</string>
     <string name="reorder_save">Lưu thứ tự</string>
     <string name="reorder_cancel">Hủy thay đổi</string>
-    <string name="reorder_undo">Hoàn tác di chuyển</string>
-    <string name="reorder_panel_hint">Chọn ô rồi dùng phím mũi tên để di chuyển. Quay lại hoàn tác; Lưu xác nhận.</string>
-    <string name="reorder_save_confirm">Lưu thay đổi thứ tự ứng dụng?</string>
     <string name="columns_label">Số ứng dụng mỗi hàng</string>
     <string name="dock_opacity_label">Độ đậm của thanh dock</string>
     <string name="animations_state">Hiệu ứng: %1$s</string>

@@ -57,9 +57,6 @@
     <string name="settings_close">Zamknij ustawienia</string>
     <string name="reorder_save">Zapisz kolejność</string>
     <string name="reorder_cancel">Odrzuć zmiany</string>
-    <string name="reorder_undo">Cofnij przeniesienie</string>
-    <string name="reorder_panel_hint">Wybierz kafelek i przesuń strzałkami. Wstecz cofa; Zapisz zatwierdza.</string>
-    <string name="reorder_save_confirm">Zapisać zmiany kolejności aplikacji?</string>
     <string name="columns_label">Aplikacji w rzędzie</string>
     <string name="dock_opacity_label">Krycie paska docka</string>
     <string name="animations_state">Animacje: %1$s</string>
