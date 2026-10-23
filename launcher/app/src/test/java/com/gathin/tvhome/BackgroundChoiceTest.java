@@ -4,6 +4,11 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class BackgroundChoiceTest {
+    @Test public void selectedUserColorsAreExact() {
+        assertEquals(0xFF2854A0, BackgroundChoice.color(1, 0));
+        assertEquals(0xFF246B50, BackgroundChoice.color(3, 0));
+        assertEquals(0xFF8B1826, BackgroundChoice.color(5, 0));
+    }
     @Test public void pickerHasNoDuplicateColorsAndMapsLegacyIndices() {
         java.util.Set<Integer> unique = new java.util.HashSet<>();
         for (int index : BackgroundChoice.PICKER_PALETTES) assertTrue(unique.add(BackgroundChoice.COLORS[index]));

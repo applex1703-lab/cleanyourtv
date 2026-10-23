@@ -177,10 +177,10 @@
     <string name="background_gold">Sand</string>
     <string name="background_burgundy">Burgundy</string>
     <string name="background_graphite">Graphite</string>
-    <string name="gradient_aurora">Emerald</string>
+    <string name="gradient_aurora">Pine green</string>
     <string name="gradient_neon">Purple</string>
     <string name="gradient_sunset">Orange</string>
-    <string name="gradient_ocean">Blue</string>
-    <string name="gradient_lava">Raspberry</string>
+    <string name="gradient_ocean">Deep blue</string>
+    <string name="gradient_lava">Dark red</string>
     <string name="gradient_gold">Golden</string>
 </resources>

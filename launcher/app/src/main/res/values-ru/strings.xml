@@ -177,10 +177,10 @@
     <string name="background_gold">Песочный</string>
     <string name="background_burgundy">Бордовый</string>
     <string name="background_graphite">Графитовый</string>
-    <string name="gradient_aurora">Изумрудный</string>
+    <string name="gradient_aurora">Хвойный</string>
     <string name="gradient_neon">Фиолетовый</string>
     <string name="gradient_sunset">Оранжевый</string>
-    <string name="gradient_ocean">Синий</string>
-    <string name="gradient_lava">Малиновый</string>
+    <string name="gradient_ocean">Глубокий синий</string>
+    <string name="gradient_lava">Тёмно-красный</string>
     <string name="gradient_gold">Золотистый</string>
 </resources>
