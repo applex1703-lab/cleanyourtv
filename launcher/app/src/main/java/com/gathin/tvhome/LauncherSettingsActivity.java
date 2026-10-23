@@ -198,13 +198,19 @@ public final class LauncherSettingsActivity extends Activity {
             @Override public View getView(int position, View recycled, ViewGroup parent) {
                 TextView row = (TextView) super.getView(position, recycled, parent);
                 int palette = BackgroundChoice.PICKER_PALETTES[position];
-                android.graphics.drawable.GradientDrawable preview = new android.graphics.drawable.GradientDrawable(
-                        android.graphics.drawable.GradientDrawable.Orientation.TL_BR,
-                        palette == 0 ? new int[]{0xFF546E7A, 0xFFB0BEC5}
-                                : new int[]{BackgroundChoice.COLORS[palette], BackgroundChoice.SECOND_COLORS[palette]});
                 float dp = getResources().getDisplayMetrics().density;
-                preview.setCornerRadius(6 * dp);
-                preview.setBounds(0, 0, Math.round(64 * dp), Math.round(30 * dp));
+                int width = Math.round(64 * dp), height = Math.round(36 * dp);
+                android.graphics.Bitmap bitmap = android.graphics.Bitmap.createBitmap(width, height, android.graphics.Bitmap.Config.ARGB_8888);
+                android.graphics.Canvas canvas = new android.graphics.Canvas(bitmap);
+                canvas.drawColor(android.graphics.Color.BLACK);
+                int color = palette == 0 ? 0xFF90A4AE : BackgroundChoice.COLORS[palette];
+                android.graphics.Paint paint = new android.graphics.Paint(android.graphics.Paint.ANTI_ALIAS_FLAG);
+                paint.setShader(new android.graphics.RadialGradient(width * 0.32f, height * 0.42f, width * 0.62f,
+                        new int[]{(color & 0xFFFFFF) | 0x5C000000, (color & 0xFFFFFF) | 0x26000000, color & 0xFFFFFF},
+                        new float[]{0f, 0.45f, 1f}, android.graphics.Shader.TileMode.CLAMP));
+                canvas.drawRect(0, 0, width, height, paint);
+                android.graphics.drawable.BitmapDrawable preview = new android.graphics.drawable.BitmapDrawable(getResources(), bitmap);
+                preview.setBounds(0, 0, width, height);
                 row.setCompoundDrawablesRelative(preview, null, null, null);
                 row.setCompoundDrawablePadding(Math.round(14 * dp));
                 return row;

@@ -6,11 +6,10 @@ final class BackgroundChoice {
     static final String PALETTE = "background_palette";
     static final String ALWAYS = "background_always";
     static final String IMAGE = "custom-background";
-    // Keep old indices readable while exposing six distinct two-colour gradients.
-    static final int[] COLORS = {0, 0xFF123DB8, 0xFF2359E8, 0xFF087F83, 0xFFF17A28, 0xFF711C3A,
-            0xFF123DB8, 0xFF2359E8, 0xFF087F83, 0xFFCB952B, 0xFFCB952B, 0xFF711C3A, 0xFF123DB8};
-    static final int[] SECOND_COLORS = {0, 0xFF00C6D7, 0xFFB62ACD, 0xFF28BB67, 0xFFC72972, 0xFFE94032,
-            0xFF00C6D7, 0xFFB62ACD, 0xFF28BB67, 0xFF442617, 0xFF442617, 0xFFE94032, 0xFF00C6D7};
+    // Single tint per preset: spatial falloff and brightness belong to the original ambient mask.
+    // Legacy indices remain valid; duplicate historical entries map to the curated picker.
+    static final int[] COLORS = {0, 0xFF2878DC, 0xFF9A48DA, 0xFF24B890, 0xFFE87838, 0xFFDD4262,
+            0xFF2878DC, 0xFF9A48DA, 0xFF24B890, 0xFFD8AD45, 0xFFD8AD45, 0xFFDD4262, 0xFF2878DC};
     static final int[] PICKER_PALETTES = {0, 3, 2, 4, 1, 5, 10};
 
     static int pickerIndex(int palette) {

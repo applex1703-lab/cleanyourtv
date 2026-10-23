@@ -39,6 +39,15 @@ class LauncherPanelContractTest(unittest.TestCase):
         self.assertNotIn("dockRow && !reordering", method)
         self.assertNotIn("settings_back_hint", (ROOT / "res/layout/activity_launcher_settings.xml").read_text())
 
+    def test_ambient_renderer_matches_original_source_exactly(self):
+        source = (ROOT / "java/com/gathin/tvhome/MainActivity.java").read_text(encoding="utf-8")
+        renderer = source.split("private void setAmbient(int color) {", 1)[1].split("private void transitionAmbient", 1)[0]
+        self.assertNotIn("backgroundPalette", renderer)
+        self.assertIn("w * 0.32f, h * 0.42f, w * 0.62f", renderer)
+        self.assertIn("0x5CFFFFFF, 0x26FFFFFF, 0x00FFFFFF", renderer)
+        self.assertIn("new float[]{0f, 0.45f, 1f}", renderer)
+        self.assertIn("glow.setTint(0xFF000000 | color)", renderer)
+
 
 if __name__ == "__main__":
     unittest.main()

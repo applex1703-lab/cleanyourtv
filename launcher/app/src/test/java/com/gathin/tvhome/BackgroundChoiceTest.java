@@ -21,11 +21,10 @@ public class BackgroundChoiceTest {
         assertEquals(0, BackgroundChoice.palette(-1));
         assertEquals(0, BackgroundChoice.palette(99));
     }
-    @Test public void presetsAreActualTwoColorGradients() {
+    @Test public void presetsUseSingleTintWithOriginalAmbientMask() {
         assertEquals(7, BackgroundChoice.PICKER_PALETTES.length);
-        assertEquals(BackgroundChoice.COLORS.length, BackgroundChoice.SECOND_COLORS.length);
         for (int index : BackgroundChoice.PICKER_PALETTES) {
-            if (index != 0) assertNotEquals(BackgroundChoice.COLORS[index], BackgroundChoice.SECOND_COLORS[index]);
+            if (index != 0) assertEquals(0xFF000000, BackgroundChoice.COLORS[index] & 0xFF000000);
         }
     }
     @Test public void dockScopeDoesNotLeakIntoLowerRows() {

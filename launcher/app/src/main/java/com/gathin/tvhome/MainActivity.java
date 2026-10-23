@@ -1929,15 +1929,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             Bitmap bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
             Canvas canvas = new Canvas(bmp);
             Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-            if (backgroundPalette != 0 && !backgroundImage) {
-                // Prepared once per Home instance, not repainted on every app-focus change.
-                paint.setShader(new LinearGradient(0, 0, w, h * 0.8f,
-                        BackgroundChoice.COLORS[backgroundPalette], BackgroundChoice.SECOND_COLORS[backgroundPalette],
-                        Shader.TileMode.CLAMP));
-                canvas.drawRect(0, 0, w, h, paint);
-                paint.setShader(new LinearGradient(0, 0, 0, h,
-                        new int[]{0x40000000, 0xA6000000, 0xFF000000}, new float[]{0f, 0.65f, 1f}, Shader.TileMode.CLAMP));
-            } else if (cinematic) {
+            if (cinematic) {
                 // Higher and stronger, from the corner away from the shelf's text: the app's colour floods
                 // the top of the screen over its artwork, and the scrim keeps the text side dark.
                 boolean rtl = getResources().getBoolean(R.bool.rtl_menu_bar);
@@ -1972,7 +1964,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             ambient.setBackground(glow);
         }
         // The default tint mode, SRC_IN, keeps the mask's alpha and takes the colour from the tint.
-        if (backgroundPalette == 0 || backgroundImage) glow.setTint(0xFF000000 | color);
+        glow.setTint(0xFF000000 | color);
     }
 
     private void transitionAmbient(int color) {
