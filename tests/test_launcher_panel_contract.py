@@ -18,6 +18,7 @@ class LauncherPanelContractTest(unittest.TestCase):
         self.assertFalse({"@+id/tabApps", "@+id/tabAppearance", "@+id/tabMotion",
                           "@+id/animationsChoice", "@+id/rows0", "@+id/panelClose", "@+id/settingsTabs"}.intersection(ids))
         self.assertIn("@+id/backgroundScope", section_ids)
+        self.assertNotIn("@+id/panelTitle", ids)
 
     def test_launcher_button_follows_system_settings(self):
         root = ET.parse(ROOT / "res/layout/activity_main.xml").getroot()

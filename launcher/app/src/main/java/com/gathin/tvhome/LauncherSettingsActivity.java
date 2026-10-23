@@ -189,9 +189,7 @@ public final class LauncherSettingsActivity extends Activity {
         return new String[]{getString(R.string.background_auto), getString(R.string.background_blue),
                 getString(R.string.background_purple), getString(R.string.background_teal),
                 getString(R.string.background_amber), getString(R.string.background_rose),
-                getString(R.string.background_sky), getString(R.string.background_indigo),
-                getString(R.string.background_emerald), getString(R.string.background_olive),
-                getString(R.string.background_gold), getString(R.string.background_burgundy),
+                getString(R.string.background_gold),
                 getString(R.string.background_graphite)};
     }
 
@@ -200,14 +198,14 @@ public final class LauncherSettingsActivity extends Activity {
         android.text.SpannableString[] labels = new android.text.SpannableString[names.length];
         for (int i = 0; i < names.length; i++) {
             labels[i] = new android.text.SpannableString("●   " + names[i]);
-            labels[i].setSpan(new android.text.style.ForegroundColorSpan(i == 0 ? 0xFFE1E8EF : BackgroundChoice.COLORS[i]),
+            labels[i].setSpan(new android.text.style.ForegroundColorSpan(i == 0 ? 0xFFE1E8EF : BackgroundChoice.COLORS[BackgroundChoice.PICKER_PALETTES[i]]),
                     0, 1, android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
         new AlertDialog.Builder(this).setTitle(R.string.background_colors)
-                .setSingleChoiceItems(labels, BackgroundChoice.palette(choices.getInt(BackgroundChoice.PALETTE, 0)),
+                .setSingleChoiceItems(labels, BackgroundChoice.pickerIndex(choices.getInt(BackgroundChoice.PALETTE, 0)),
                         (dialog, which) -> {
                             choices.edit().putString(BackgroundChoice.MODE, "colors")
-                                    .putInt(BackgroundChoice.PALETTE, which).apply();
+                                    .putInt(BackgroundChoice.PALETTE, BackgroundChoice.PICKER_PALETTES[which]).apply();
                             changed();
                             refresh();
                             dialog.dismiss();
@@ -290,7 +288,7 @@ public final class LauncherSettingsActivity extends Activity {
         for (int i = 0; i < columnChoices.length; i++) columnChoices[i].setSelected(columns == i + 4);
         for (int i = 0; i < dockChoices.length; i++) dockChoices[i].setSelected(dockOpacity == DOCK_OPACITIES[i]);
         String label = "image".equals(choices.getString(BackgroundChoice.MODE, "colors"))
-                ? getString(R.string.background_image) : colorLabels()[BackgroundChoice.palette(choices.getInt(BackgroundChoice.PALETTE, 0))];
+                ? getString(R.string.background_image) : colorLabels()[BackgroundChoice.pickerIndex(choices.getInt(BackgroundChoice.PALETTE, 0))];
         wallpaperChoice.setText(getString(R.string.background_current, label));
         backgroundScope.setText(choices.getBoolean(BackgroundChoice.ALWAYS, false)
                 ? R.string.background_always : R.string.background_dock);

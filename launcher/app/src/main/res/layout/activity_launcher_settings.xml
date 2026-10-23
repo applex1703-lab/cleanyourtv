@@ -4,10 +4,8 @@
     <LinearLayout android:id="@+id/settingsPanel" android:layout_width="540dp" android:layout_height="match_parent"
         android:layout_gravity="end" android:background="@drawable/settings_panel_bg" android:orientation="vertical"
         android:paddingStart="28dp" android:paddingEnd="28dp" android:paddingTop="24dp" android:paddingBottom="18dp">
-        <TextView android:id="@+id/panelTitle" android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:text="@string/launcher_settings" android:textSize="24sp" android:textColor="#FFF5F7FA" />
         <ScrollView android:id="@+id/settingsScroll" android:layout_width="match_parent" android:layout_height="0dp"
-            android:layout_weight="1" android:layout_marginTop="16dp" android:clipToPadding="false" android:paddingBottom="12dp">
+            android:layout_weight="1" android:clipToPadding="false" android:paddingBottom="12dp">
             <LinearLayout android:id="@+id/layoutTabContent" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
                 <LinearLayout style="@style/SettingsCard">
                 <TextView style="@style/SettingsSectionLabel" android:text="@string/columns_label" />

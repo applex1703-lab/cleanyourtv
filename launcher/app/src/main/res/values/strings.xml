@@ -157,11 +157,11 @@
     <string name="background_image">Your image</string>
     <string name="background_colors">Colors</string>
     <string name="background_auto">From the selected app</string>
-    <string name="background_blue">Ocean blue</string>
-    <string name="background_purple">Violet dusk</string>
-    <string name="background_teal">Forest teal</string>
-    <string name="background_amber">Warm sunset</string>
-    <string name="background_rose">Rose glow</string>
+    <string name="background_blue">Cool blue</string>
+    <string name="background_purple">Soft lilac</string>
+    <string name="background_teal">Pine green</string>
+    <string name="background_amber">Warm peach</string>
+    <string name="background_rose">Dusty rose</string>
     <string name="background_scope">Show background</string>
     <string name="background_dock">Only on the dock</string>
     <string name="background_always">Always</string>
@@ -174,7 +174,7 @@
     <string name="background_indigo">Indigo</string>
     <string name="background_emerald">Emerald</string>
     <string name="background_olive">Olive</string>
-    <string name="background_gold">Soft gold</string>
+    <string name="background_gold">Sand</string>
     <string name="background_burgundy">Burgundy</string>
     <string name="background_graphite">Graphite</string>
 </resources>
