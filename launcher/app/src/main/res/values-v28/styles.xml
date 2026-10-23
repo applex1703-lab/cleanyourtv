@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Direct variable-font axis, matching the installed reference on Android 9+. -->
+    <style name="TopButtonBase" parent="TopButtonBaseReference">
+        <item name="android:fontVariationSettings">\'wght\' 500</item>
+    </style>
+</resources>
