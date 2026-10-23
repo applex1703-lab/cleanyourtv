@@ -1418,7 +1418,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         } else {
             if (!allowPanelReturn) reorderPanelReturn = false;
             if (refreshGrid) {
-            grid.post(() -> firstTopButton().requestFocus());
+                grid.post(() -> firstTopButton().requestFocus());
             }
         }
     }
@@ -1488,7 +1488,10 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         btnReorder.setActivated(false);
         dockInSession = null;
         orderAtStart = null;
-        if (fillDockLeavesSlots) reloadTiles();   // the empty dock slots left out while reordering come back
+        if (fillDockLeavesSlots || packageRefreshDeferred) {
+            packageRefreshDeferred = false;
+            reloadTiles();   // restore empty slots and reconcile any deferred package changes
+        }
         reorderHistory.clear();
         reorderBaseline = null;
         dockBaseline = null;
@@ -1496,7 +1499,6 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         btnReorderSave.setVisibility(View.GONE);
         btnReorderCancel.setVisibility(View.GONE);
         if (reorderPanelReturn) {
-            reorderPanelReturn = false;
             reopenSettingsPanelIfRequested();
         } else if (restorePanelFocus) {
             grid.post(() -> btnLauncherPanel.requestFocus());

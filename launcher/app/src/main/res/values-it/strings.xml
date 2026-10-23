@@ -32,16 +32,6 @@
     <string name="reorder_cancel">Annulla modifiche</string>
     <string name="reorder_undo">Annulla spostamento</string>
     <string name="reorder_panel_hint">Seleziona una tessera e spostala con le frecce. Indietro annulla; Salva conferma.</string>
-    <string name="reorder_save_confirm">Salvare le modifiche all'ordine delle app?</string>
-    <string name="settings_tab_layout">Layout</string>
-    <string name="settings_tab_appearance">Aspetto</string>
-    <string name="settings_tab_motion">Movimento</string>
-    <string name="settings_tab_apps">App</string>
-    <string name="settings_close">Chiudi le impostazioni</string>
-    <string name="reorder_save">Salva ordine</string>
-    <string name="reorder_cancel">Annulla modifiche</string>
-    <string name="reorder_undo">Annulla spostamento</string>
-    <string name="reorder_panel_hint">Seleziona una tessera e spostala con le frecce. Indietro annulla; Salva conferma.</string>
     <string name="reorder_save_confirm">Salvare le modifiche all’ordine delle app?</string>
     <string name="columns_label">App per riga</string>
     <string name="dock_opacity_label">Opacità della barra del dock</string>

@@ -35,16 +35,6 @@
     <string name="reorder_undo">Deshacer movimiento</string>
     <string name="reorder_panel_hint">Selecciona un mosaico y muévelo con las flechas. Atrás deshace; Guardar confirma.</string>
     <string name="reorder_save_confirm">¿Guardar los cambios en el orden de las aplicaciones?</string>
-    <string name="settings_tab_layout">Diseño</string>
-    <string name="settings_tab_appearance">Apariencia</string>
-    <string name="settings_tab_motion">Movimiento</string>
-    <string name="settings_tab_apps">Aplicaciones</string>
-    <string name="settings_close">Cerrar ajustes</string>
-    <string name="reorder_save">Guardar orden</string>
-    <string name="reorder_cancel">Descartar cambios</string>
-    <string name="reorder_undo">Deshacer movimiento</string>
-    <string name="reorder_panel_hint">Selecciona un mosaico y muévelo con las flechas. Atrás deshace; Guardar confirma.</string>
-    <string name="reorder_save_confirm">¿Guardar los cambios en el orden de las aplicaciones?</string>
     <string name="columns_label">Aplicaciones por fila</string>
     <string name="dock_opacity_label">Opacidad de la barra del dock</string>
     <string name="animations_state">Animaciones: %1$s</string>

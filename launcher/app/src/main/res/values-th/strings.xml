@@ -35,16 +35,6 @@
     <string name="reorder_undo">เลิกทำการย้าย</string>
     <string name="reorder_panel_hint">เลือกไทล์แล้วใช้ลูกศรเพื่อย้าย ย้อนกลับเพื่อเลิกทำ บันทึกเพื่อยืนยัน</string>
     <string name="reorder_save_confirm">บันทึกการเปลี่ยนลำดับแอปหรือไม่</string>
-    <string name="settings_tab_layout">เค้าโครง</string>
-    <string name="settings_tab_appearance">รูปลักษณ์</string>
-    <string name="settings_tab_motion">การเคลื่อนไหว</string>
-    <string name="settings_tab_apps">แอป</string>
-    <string name="settings_close">ปิดการตั้งค่า</string>
-    <string name="reorder_save">บันทึกลำดับ</string>
-    <string name="reorder_cancel">ยกเลิกการเปลี่ยนแปลง</string>
-    <string name="reorder_undo">เลิกทำการย้าย</string>
-    <string name="reorder_panel_hint">เลือกไทล์แล้วใช้ลูกศรเพื่อย้าย ย้อนกลับเพื่อเลิกทำ บันทึกเพื่อยืนยัน</string>
-    <string name="reorder_save_confirm">บันทึกการเปลี่ยนลำดับแอปหรือไม่</string>
     <string name="columns_label">แอปต่อแถว</string>
     <string name="dock_opacity_label">ความทึบของแถบด็อก</string>
     <string name="animations_state">ภาพเคลื่อนไหว: %1$s</string>

@@ -35,16 +35,6 @@
     <string name="reorder_undo">Vrátit přesunutí</string>
     <string name="reorder_panel_hint">Vyberte dlaždici a přesuňte ji šipkami. Zpět vrátí krok; Uložit potvrdí.</string>
     <string name="reorder_save_confirm">Uložit změny pořadí aplikací?</string>
-    <string name="settings_tab_layout">Rozvržení</string>
-    <string name="settings_tab_appearance">Vzhled</string>
-    <string name="settings_tab_motion">Pohyb</string>
-    <string name="settings_tab_apps">Aplikace</string>
-    <string name="settings_close">Zavřít nastavení</string>
-    <string name="reorder_save">Uložit pořadí</string>
-    <string name="reorder_cancel">Zahodit změny</string>
-    <string name="reorder_undo">Vrátit přesunutí</string>
-    <string name="reorder_panel_hint">Vyberte dlaždici a přesuňte ji šipkami. Zpět vrátí krok; Uložit potvrdí.</string>
-    <string name="reorder_save_confirm">Uložit změny pořadí aplikací?</string>
     <string name="columns_label">Aplikací v řádku</string>
     <string name="dock_opacity_label">Krytí pruhu docku</string>
     <string name="animations_state">Animace: %1$s</string>

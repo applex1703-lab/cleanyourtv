@@ -60,16 +60,6 @@
     <string name="reorder_undo">التراجع عن النقل</string>
     <string name="reorder_panel_hint">اختر مربعًا ثم استخدم الأسهم لنقله. رجوع يتراجع عن النقل؛ الحفظ يثبت التغييرات.</string>
     <string name="reorder_save_confirm">هل تريد حفظ تغييرات ترتيب التطبيقات؟</string>
-    <string name="settings_tab_layout">التخطيط</string>
-    <string name="settings_tab_appearance">المظهر</string>
-    <string name="settings_tab_motion">الحركة</string>
-    <string name="settings_tab_apps">التطبيقات</string>
-    <string name="settings_close">إغلاق الإعدادات</string>
-    <string name="reorder_save">حفظ الترتيب</string>
-    <string name="reorder_cancel">تجاهل التغييرات</string>
-    <string name="reorder_undo">التراجع عن النقل</string>
-    <string name="reorder_panel_hint">اختر مربعًا ثم استخدم الأسهم لنقله. رجوع يتراجع عن النقل؛ الحفظ يثبت التغييرات.</string>
-    <string name="reorder_save_confirm">هل تريد حفظ تغييرات ترتيب التطبيقات؟</string>
     <string name="columns_label">تطبيقات في كل صف</string>
     <string name="dock_opacity_label">عتامة شريط التطبيقات</string>
     <string name="animations_state">الرسوم المتحركة: %1$s</string>

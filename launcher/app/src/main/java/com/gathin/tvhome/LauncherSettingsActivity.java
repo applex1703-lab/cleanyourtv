@@ -106,7 +106,7 @@ public final class LauncherSettingsActivity extends Activity {
         if (rtl) {
             LinearLayout tabRow = findViewById(R.id.settingsTabs);
             tabRow.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
-            LinearLayout.LayoutParams panelParams = (LinearLayout.LayoutParams) findViewById(R.id.settingsPanel).getLayoutParams();
+            FrameLayout.LayoutParams panelParams = (FrameLayout.LayoutParams) settingsPanel.getLayoutParams();
             panelParams.gravity = Gravity.START;
             findViewById(R.id.settingsPanel).setLayoutParams(panelParams);
         }
@@ -220,6 +220,12 @@ public final class LauncherSettingsActivity extends Activity {
         View.OnClickListener editDock = v -> startReorder(true);
         findViewById(R.id.dockEditPanelChoice).setOnClickListener(editDock);
         findViewById(R.id.dockEditPanelChoice).setOnKeyListener((v, keyCode, event) -> activateOnCenter(v, keyCode, event));
+        findViewById(R.id.tvSettingsChoice).setOnClickListener(v ->
+                open(SystemSettings.intent(this, Settings.ACTION_SETTINGS)));
+        findViewById(R.id.defaultHomeChoice).setOnClickListener(v -> {
+            Toast.makeText(this, R.string.home_settings_help, Toast.LENGTH_LONG).show();
+            open(new Intent(Settings.ACTION_HOME_SETTINGS));
+        });
         showTab(0);
         refresh();
         if (getIntent().getBooleanExtra(EXTRA_OPEN_APPS_TAB, false)) {
@@ -242,18 +248,18 @@ public final class LauncherSettingsActivity extends Activity {
         title.setText(titles[selected]);
     }
 
-    private void firstFocusable(View parent) {
-        if (!(parent instanceof android.view.ViewGroup)) return;
+    private boolean firstFocusable(View parent) {
+        if (!(parent instanceof android.view.ViewGroup)) return false;
         android.view.ViewGroup group = (android.view.ViewGroup) parent;
         for (int i = 0; i < group.getChildCount(); i++) {
             View child = group.getChildAt(i);
             if (child.getVisibility() != View.VISIBLE) continue;
             if (child.isFocusable()) {
-                child.requestFocus();
-                return;
+                if (child.requestFocus()) return true;
             }
-            firstFocusable(child);
+            if (firstFocusable(child)) return true;
         }
+        return false;
     }
 
     @Override

@@ -38,16 +38,6 @@
     <string name="reorder_undo">Angre flytting</string>
     <string name="reorder_panel_hint">Velg en flis og flytt den med pilene. Tilbake angrer; Lagre bekrefter.</string>
     <string name="reorder_save_confirm">Lagre endringene i apprekkefølgen?</string>
-    <string name="settings_tab_layout">Oppsett</string>
-    <string name="settings_tab_appearance">Utseende</string>
-    <string name="settings_tab_motion">Bevegelse</string>
-    <string name="settings_tab_apps">Apper</string>
-    <string name="settings_close">Lukk innstillinger</string>
-    <string name="reorder_save">Lagre rekkefølge</string>
-    <string name="reorder_cancel">Forkast endringer</string>
-    <string name="reorder_undo">Angre flytting</string>
-    <string name="reorder_panel_hint">Velg en flis og flytt den med pilene. Tilbake angrer; Lagre bekrefter.</string>
-    <string name="reorder_save_confirm">Lagre endringene i apprekkefølgen?</string>
     <string name="columns_label">Apper per rad</string>
     <string name="dock_opacity_label">Dekkevne for dock-feltet</string>
     <string name="rows_below_dock_label">Rader under favorittraden</string>

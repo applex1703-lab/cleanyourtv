@@ -82,16 +82,6 @@
     <string name="settings_tab_layout">Layout</string>
     <string name="settings_tab_appearance">Aparência</string>
     <string name="settings_tab_motion">Movimento</string>
-    <string name="settings_tab_apps">Aplicações</string>
-    <string name="settings_close">Fechar definições</string>
-    <string name="reorder_save">Guardar ordem</string>
-    <string name="reorder_cancel">Rejeitar alterações</string>
-    <string name="reorder_undo">Anular movimento</string>
-    <string name="reorder_panel_hint">Selecione um mosaico e mova-o com as setas. Voltar anula; Guardar confirma.</string>
-    <string name="reorder_save_confirm">Guardar as alterações à ordem das aplicações?</string>
-    <string name="settings_tab_layout">Layout</string>
-    <string name="settings_tab_appearance">Aparência</string>
-    <string name="settings_tab_motion">Movimento</string>
     <string name="settings_tab_apps">Aplicativos</string>
     <string name="settings_close">Fechar definições</string>
     <string name="reorder_save">Guardar ordem</string>
