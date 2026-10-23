@@ -1630,8 +1630,11 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         if (dockRow) {
             View item = (View) card.getParent();
             int dy = item.getTop() - (int) (6 * density) - grid.getPaddingTop();
-            grid.stopScroll();
-            if (dy != 0) grid.scrollBy(0, dy);
+            // A horizontal focus move must not interrupt the running highlight/row animation.
+            if (Math.abs(dy) > 1) {
+                grid.stopScroll();
+                grid.scrollBy(0, dy);
+            }
         }
         // Tile rect in root coordinates, using layout positions (ignores the scale animation).
         Rect r = tileRect;

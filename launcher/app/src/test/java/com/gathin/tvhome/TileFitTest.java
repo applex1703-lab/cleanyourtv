@@ -19,6 +19,11 @@ public class TileFitTest {
     }
 
     @Test
+    public void fourColumnsMatchInstalledReferenceTileWidth() {
+        assertEquals(360, AppAdapter.tileWidthPx(1656, 4, D));
+    }
+
+    @Test
     public void noRowsBelowDockKeepsTheWidthOnlySize() {
         int widthOnly = AppAdapter.tileWidthPx(INNER, 4, D);
         assertEquals(widthOnly, AppAdapter.tileWidthPx(INNER, GRID_H, 4, 0, true, true, D));

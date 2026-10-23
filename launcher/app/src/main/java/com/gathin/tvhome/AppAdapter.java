@@ -103,6 +103,9 @@ public class AppAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         int design = Math.round(DESIGN_W_DP * density);
         if (innerWidthPx <= 0 || columns <= 0) return design;
         int cell = innerWidthPx / columns;
+        // The installed reference launcher uses 180dp tiles at four columns.
+        // Reserve space from the actual cell rather than shrinking that reference layout by 3dp.
+        if (columns <= 4 && cell >= design + Math.round(12 * density)) return design;
         int fit = (int) ((cell - 12 * density) / FOCUS_SCALE);
         return Math.max(Math.round(80 * density), Math.min(design, fit));
     }
