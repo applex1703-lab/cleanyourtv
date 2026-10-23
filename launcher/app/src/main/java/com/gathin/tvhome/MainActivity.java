@@ -187,6 +187,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private String vpnApp;
     private SpringAnimation springX, springY;
     private float glassTargetX, glassTargetY;
+    private float gridFocusY = Float.NaN;
     // How far the grid has scrolled the glass. springY works without it, in grid content space, so a
     // scroll moves the glass in lockstep with its tile instead of becoming a moving spring target.
     private float glassScrollShift;
@@ -1644,8 +1645,6 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             glass.setRadius(AppAdapter.cornerRadius(card.getWidth(), density) * scale);
         }
         glassCardW = card.getWidth();
-        glassTargetX = x;
-        glassTargetY = y;
         // Cinematic shelf: the highlight glows in the dock app's colour, plain white in the grid. app_glow: every tile.
         boolean coloured = (appGlow || cinematic && position < COLUMNS) && !festive;
         int accent = coloured ? adapter.ambientColorAt(position) : 0;
@@ -1672,6 +1671,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         }
         View item = (View) card.getParent();
         if (dockRow && position < COLUMNS) {
+            gridFocusY = Float.NaN;
             // Dock: park it at the bottom of the screen and show the top shelf for this app.
             int decoratedTop = item.getTop() - (int) (6 * density);
             int dy = decoratedTop - grid.getPaddingTop();
@@ -1684,12 +1684,26 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             }
             showHero(position, scroll ? r.top - dy : r.top);
         } else {
+            if (Float.isNaN(gridFocusY)) {
+                gridFocusY = r.exactCenterY();
+            } else {
+                int scrollBy = Math.round(r.exactCenterY() - gridFocusY);
+                if (scrollBy != 0) {
+                    grid.scrollBy(0, scrollBy);
+                    root.offsetDescendantRectToMyCoords(card, r);
+                    x = r.exactCenterX() - w / 2f;
+                    y = r.exactCenterY() - h / 2f - (advancedEffects ? 4f * density : 0f);
+                }
+            }
             // Below the dock (or in a plain grid) the glow follows the tile without the big name; letting it
             // fade out left the grid on plain black.
             showGlowOnly(position);
-            // Scroll just enough so the whole glass (not only the tile) is visible.
-            revealRect.set(0, -(int) pad * 2, item.getWidth(), item.getHeight() + (int) pad);
-            grid.requestChildRectangleOnScreen(item, revealRect, reducedMotion);
+        }
+        glassTargetX = x;
+        glassTargetY = y;
+        if (animations && glassShown) {
+            springX.animateToFinalPosition(x);
+            springY.animateToFinalPosition(y - glassScrollShift);
         }
     }
 
@@ -1974,7 +1988,6 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
      * name above the dock does not show (every grid tile has its name underneath).
      */
     private void showGlowOnly(int position) {
-        int color = adapter.ambientColorAt(position);
         stopAmbientAnimation();
         hero.animate().cancel();
         ambient.animate().cancel();
@@ -1982,20 +1995,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         heroArt.animate().cancel();
         heroArt.setAlpha(0f);
         heroShown = false;
-        if (!ambientGlow) return;
-        if (!animations || reducedMotion) {
-            setAmbient(color);
-            ambient.setAlpha(1f);
-            return;
-        }
-        if (color == ambientColor && ambient.getBackground() != null) {
-            ambient.animate().alpha(1f).setDuration(300).start();
-            return;
-        }
-        ambient.animate().alpha(0.35f).setDuration(ambient.getAlpha() > 0.35f ? 200 : 0).withEndAction(() -> {
-            setAmbient(color);
-            ambient.animate().alpha(1f).setDuration(500).start();
-        }).start();
+        if (animations && !reducedMotion) ambient.animate().alpha(0f).setDuration(180).start();
+        else ambient.setAlpha(0f);
     }
 
     private void hideHero() {

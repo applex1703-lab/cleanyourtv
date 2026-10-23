@@ -51,9 +51,8 @@ public final class LauncherSettingsActivity extends Activity {
         findViewById(R.id.settingsScrim).setOnClickListener(v -> finish());
         panel.setOnClickListener(v -> { });
 
-        tabs = new View[]{findViewById(R.id.tabLayout), findViewById(R.id.tabAppearance), findViewById(R.id.tabApps)};
-        tabContents = new View[]{findViewById(R.id.layoutTabContent), findViewById(R.id.appearanceTabContent),
-                findViewById(R.id.appsTabContent)};
+        tabs = new View[]{findViewById(R.id.tabLayout)};
+        tabContents = new View[]{findViewById(R.id.layoutTabContent)};
         boolean rtl = getResources().getBoolean(R.bool.rtl_menu_bar);
         for (int i = 0; i < tabs.length; i++) {
             final int index = i;
@@ -142,7 +141,7 @@ public final class LauncherSettingsActivity extends Activity {
         showTab(0);
         refresh();
         if (getIntent().getBooleanExtra(EXTRA_OPEN_APPS_TAB, false)) {
-            showTab(2);
+            showTab(0);
             reorder.requestFocus();
         } else {
             tabs[0].requestFocus();
@@ -155,8 +154,7 @@ public final class LauncherSettingsActivity extends Activity {
             tabs[i].setSelected(i == selected);
             tabContents[i].setVisibility(i == selected ? View.VISIBLE : View.GONE);
         }
-        int[] titles = {R.string.settings_tab_layout, R.string.settings_tab_appearance, R.string.settings_tab_apps};
-        ((TextView) findViewById(R.id.panelTitle)).setText(titles[selected]);
+        ((TextView) findViewById(R.id.panelTitle)).setText(R.string.settings_tab_layout);
     }
 
     private boolean firstFocusable(View view) {
