@@ -187,7 +187,6 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private String vpnApp;
     private SpringAnimation springX, springY;
     private float glassTargetX, glassTargetY;
-    private float gridFocusY = Float.NaN;
     // How far the grid has scrolled the glass. springY works without it, in grid content space, so a
     // scroll moves the glass in lockstep with its tile instead of becoming a moving spring target.
     private float glassScrollShift;
@@ -483,7 +482,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             public boolean requestChildRectangleOnScreen(@NonNull RecyclerView parent, @NonNull View child,
                                                          @NonNull Rect rect, boolean immediate,
                                                          boolean focusedChildVisible) {
-                if (dockRow && getPosition(child) < COLUMNS) return false;
+                // onTileFocused aligns every dock-layout row to the same vertical anchor.
+                if (dockRow) return false;
                 int top = child.getTop() + rect.top;
                 int bottom = top + rect.height();
                 // A row already fully on screen stays put, even inside the bottom padding (the last row
@@ -1625,6 +1625,14 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             });
             return;
         }
+        // Align the row before measuring the glass. Measuring first produces a stale Y target
+        // and the visible jump/shrink when the grid scroll listener offsets the glass afterwards.
+        if (dockRow) {
+            View item = (View) card.getParent();
+            int dy = item.getTop() - (int) (6 * density) - grid.getPaddingTop();
+            grid.stopScroll();
+            if (dy != 0) grid.scrollBy(0, dy);
+        }
         // Tile rect in root coordinates, using layout positions (ignores the scale animation).
         Rect r = tileRect;
         r.set(0, 0, card.getWidth(), card.getHeight());
@@ -1645,6 +1653,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             glass.setRadius(AppAdapter.cornerRadius(card.getWidth(), density) * scale);
         }
         glassCardW = card.getWidth();
+        glassTargetX = x;
+        glassTargetY = y;
         // Cinematic shelf: the highlight glows in the dock app's colour, plain white in the grid. app_glow: every tile.
         boolean coloured = (appGlow || cinematic && position < COLUMNS) && !festive;
         int accent = coloured ? adapter.ambientColorAt(position) : 0;
@@ -1671,39 +1681,14 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         }
         View item = (View) card.getParent();
         if (dockRow && position < COLUMNS) {
-            gridFocusY = Float.NaN;
-            // Dock: park it at the bottom of the screen and show the top shelf for this app.
-            int decoratedTop = item.getTop() - (int) (6 * density);
-            int dy = decoratedTop - grid.getPaddingTop();
-            // A 1px mismatch used to start a scroll on every dock move. Only scroll when the row is
-            // actually off; reduced motion does it in one jump so it does not fight the highlight.
-            boolean scroll = Math.abs(dy) > (int) (8 * density);
-            if (scroll) {
-                if (!animations || reducedMotion) grid.scrollBy(0, dy);
-                else grid.smoothScrollBy(0, dy);
-            }
-            showHero(position, scroll ? r.top - dy : r.top);
+            showHero(position, r.top);
         } else {
-            if (Float.isNaN(gridFocusY)) {
-                gridFocusY = r.exactCenterY();
-            } else {
-                int scrollBy = Math.round(r.exactCenterY() - gridFocusY);
-                if (scrollBy != 0) {
-                    grid.scrollBy(0, scrollBy);
-                    root.offsetDescendantRectToMyCoords(card, r);
-                    x = r.exactCenterX() - w / 2f;
-                    y = r.exactCenterY() - h / 2f - (advancedEffects ? 4f * density : 0f);
-                }
-            }
-            // Below the dock (or in a plain grid) the glow follows the tile without the big name; letting it
-            // fade out left the grid on plain black.
+            // Only dock apps colour the background.
             showGlowOnly(position);
-        }
-        glassTargetX = x;
-        glassTargetY = y;
-        if (animations && glassShown) {
-            springX.animateToFinalPosition(x);
-            springY.animateToFinalPosition(y - glassScrollShift);
+            if (!dockRow) {
+                revealRect.set(0, -(int) pad * 2, item.getWidth(), item.getHeight() + (int) pad);
+                grid.requestChildRectangleOnScreen(item, revealRect, reducedMotion);
+            }
         }
     }
 
