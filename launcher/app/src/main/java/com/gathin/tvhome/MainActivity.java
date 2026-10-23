@@ -563,6 +563,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             @Override
             public void onScrolled(@NonNull RecyclerView rv, int dx, int dy) {
                 if (!glassShown) return;
+                if (dockRow && !reordering) return; // row animation moves beneath the fixed screen-space highlight
                 glassTargetY -= dy;
                 glassScrollShift -= dy;
                 glass.setTranslationY(glass.getTranslationY() - dy);
@@ -1627,19 +1628,25 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         }
         // Align the row before measuring the glass. Measuring first produces a stale Y target
         // and the visible jump/shrink when the grid scroll listener offsets the glass afterwards.
-        if (dockRow) {
+        int rowScroll = 0;
+        if (dockRow && !reordering) {
             View item = (View) card.getParent();
-            int dy = item.getTop() - (int) (6 * density) - grid.getPaddingTop();
+            int dy = item.getTop() - Math.round(12 * density) - grid.getPaddingTop();
             // A horizontal focus move must not interrupt the running highlight/row animation.
             if (Math.abs(dy) > 1) {
                 grid.stopScroll();
-                grid.scrollBy(0, dy);
+                rowScroll = dy;
+                if (!animations || reducedMotion) {
+                    grid.scrollBy(0, dy);
+                    rowScroll = 0;
+                }
             }
         }
         // Tile rect in root coordinates, using layout positions (ignores the scale animation).
         Rect r = tileRect;
         r.set(0, 0, card.getWidth(), card.getHeight());
         root.offsetDescendantRectToMyCoords(card, r);
+        if (rowScroll != 0) r.offset(0, -rowScroll);
         float pad = 6f * density;        // matches GlassView's glow inset
         float scale = adapter.focusScale();
         float w = card.getWidth() * scale + 2 * pad;
@@ -1693,6 +1700,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
                 grid.requestChildRectangleOnScreen(item, revealRect, reducedMotion);
             }
         }
+        if (rowScroll != 0) grid.smoothScrollBy(0, rowScroll);
     }
 
     /** Refits the glass to the focused holder once the grid layout and tile dimensions settle. */
