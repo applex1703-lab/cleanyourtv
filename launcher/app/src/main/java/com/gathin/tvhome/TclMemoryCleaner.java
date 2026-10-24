@@ -73,12 +73,12 @@ final class TclMemoryCleaner {
                 try {
                     List<String> exclusions = exclusions();
                     if (!DESCRIPTOR.equals(binder.getInterfaceDescriptor())) throw new SecurityException("Unexpected TCL interface");
-                        if (!busy || closed || request != generation) return;
-                        data.writeInterfaceToken(DESCRIPTOR);
-                        data.writeStrongBinder(callback(request));
-                        data.writeStringList(exclusions);
-                        if (!binder.transact(2, data, reply, 0)) throw new RemoteException("Unsupported cleanup");
-                        reply.readException();
+                    if (!busy || closed || request != generation) return;
+                    data.writeInterfaceToken(DESCRIPTOR);
+                    data.writeStrongBinder(callback(request));
+                    data.writeStringList(exclusions);
+                    if (!binder.transact(2, data, reply, 0)) throw new RemoteException("Unsupported cleanup");
+                    reply.readException();
                 } catch (Exception unavailable) { main.post(() -> { if (request == generation) finish(false); }); }
                 finally { data.recycle(); reply.recycle(); }
             });
