@@ -22,11 +22,12 @@ class LauncherPanelContractTest(unittest.TestCase):
         self.assertNotIn("@+id/panelTitle", ids)
         self.assertNotIn("@style/SettingsCard", {n.get("style") for n in root.iter()})
 
-    def test_launcher_button_follows_system_settings(self):
+    def test_cleanup_between_system_and_launcher_settings(self):
         root = ET.parse(ROOT / "res/layout/activity_main.xml").getroot()
         bar = next(n for n in root.iter() if n.get(ANDROID + "id") == "@+id/topButtons")
         ids = [n.get(ANDROID + "id") for n in bar]
-        self.assertEqual(ids.index("@+id/btnSettings") + 1, ids.index("@+id/btnLauncherPanel"))
+        self.assertEqual(ids.index("@+id/btnSettings") + 1, ids.index("@+id/btnMemoryClean"))
+        self.assertEqual(ids.index("@+id/btnMemoryClean") + 1, ids.index("@+id/btnLauncherPanel"))
 
     def test_row_alignment_precedes_glass_measurement(self):
         source = (ROOT / "java/com/gathin/tvhome/MainActivity.java").read_text(encoding="utf-8")
