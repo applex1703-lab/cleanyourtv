@@ -183,4 +183,9 @@
     <string name="gradient_ocean">Глубокий синий</string>
     <string name="gradient_lava">Красный</string>
     <string name="gradient_gold">Золотистый</string>
+    <string name="hide_apps">Скрыть приложения</string>
+    <string name="hide_apps_hint">Отмеченные приложения скрыты с главного экрана</string>
+    <string name="hide_apps_loading">Загрузка приложений главного экрана…</string>
+    <string name="hide_apps_empty">Нет приложений для скрытия.</string>
+    <string name="hide_apps_failed">Не удалось прочитать или сохранить видимость приложений. Попробуйте ещё раз.</string>
 </resources>

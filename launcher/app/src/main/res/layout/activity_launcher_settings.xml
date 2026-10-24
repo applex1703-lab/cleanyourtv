@@ -26,6 +26,7 @@
                 <TextView style="@style/SettingsSectionLabel" android:text="@string/background_scope" android:textSize="14sp" />
                 <TextView android:id="@+id/backgroundScope" style="@style/SettingsRow" android:layout_marginTop="8dp" />
                 <TextView android:id="@+id/reorderPanelChoice" style="@style/SettingsRow" android:layout_marginTop="16dp" android:text="@string/reorder" />
+                <TextView android:id="@+id/hideAppsChoice" style="@style/SettingsRow" android:layout_marginTop="8dp" android:text="@string/hide_apps" />
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

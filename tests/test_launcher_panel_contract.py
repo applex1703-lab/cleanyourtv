@@ -18,6 +18,7 @@ class LauncherPanelContractTest(unittest.TestCase):
         self.assertFalse({"@+id/tabApps", "@+id/tabAppearance", "@+id/tabMotion",
                           "@+id/animationsChoice", "@+id/rows0", "@+id/panelClose", "@+id/settingsTabs"}.intersection(ids))
         self.assertIn("@+id/backgroundScope", section_ids)
+        self.assertIn("@+id/hideAppsChoice", section_ids)
         self.assertNotIn("@+id/panelTitle", ids)
         self.assertNotIn("@style/SettingsCard", {n.get("style") for n in root.iter()})
 

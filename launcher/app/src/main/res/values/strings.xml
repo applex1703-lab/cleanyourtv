@@ -183,4 +183,9 @@
     <string name="gradient_ocean">Deep blue</string>
     <string name="gradient_lava">Red</string>
     <string name="gradient_gold">Golden</string>
+    <string name="hide_apps">Hide apps</string>
+    <string name="hide_apps_hint">Checked apps are hidden from Home</string>
+    <string name="hide_apps_loading">Loading Home apps…</string>
+    <string name="hide_apps_empty">No Home apps to hide.</string>
+    <string name="hide_apps_failed">Could not read or save app visibility. Try again.</string>
 </resources>

@@ -116,6 +116,9 @@ public final class LauncherSettingsActivity extends Activity {
         View reorder = findViewById(R.id.reorderPanelChoice);
         reorder.setOnClickListener(v -> startReorder(false));
         reorder.setOnKeyListener(this::activateOnCenter);
+        View hideApps = findViewById(R.id.hideAppsChoice);
+        hideApps.setOnClickListener(v -> HiddenAppsDialog.show(this, this::changed));
+        hideApps.setOnKeyListener(this::activateOnCenter);
 
         refresh();
         if (getIntent().getBooleanExtra(EXTRA_OPEN_APPS_TAB, false)) {
