@@ -269,6 +269,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private boolean reorderPanelReturn;
     private boolean packageRefreshDeferred;
     private View btnLauncherPanel;
+    private TclMemoryCleaner memoryCleaner;
     /** dock_apps as loaded (config.xml or a theme): a saved Order only applies while these are unchanged. */
     private List<String> dockApps;
     /** fill_dock false: the dock can have empty slots, which reorder mode leaves out and restores afterwards. */
@@ -606,6 +607,22 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
 
         btnInputs = findViewById(R.id.btnInputs);
         View btnSettings = findViewById(R.id.btnSettings);
+        View btnMemoryClean = findViewById(R.id.btnMemoryClean);
+        memoryCleaner = new TclMemoryCleaner(this);
+        btnMemoryClean.setVisibility(memoryCleaner.available() ? View.VISIBLE : View.GONE);
+        btnMemoryClean.setOnClickListener(v -> {
+            if (!v.isActivated()) {
+                v.setActivated(true);
+                v.setAlpha(0.55f);
+                Toast.makeText(this, R.string.memory_clean_running, Toast.LENGTH_SHORT).show();
+                memoryCleaner.clean(success -> {
+                    v.setActivated(false);
+                    v.setAlpha(1f);
+                    Toast.makeText(this, success ? R.string.memory_clean_done : R.string.memory_clean_failed,
+                            Toast.LENGTH_SHORT).show();
+                });
+            }
+        });
         btnInputs.setOnClickListener(v -> showInputs());
         btnWifi.setOnClickListener(v -> openNetworkPill());
         btnWifi.setOnLongClickListener(v -> {
@@ -690,6 +707,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         };
         btnInputs.setOnKeyListener(pillKeys);
         btnWifi.setOnKeyListener(pillKeys);
+        btnMemoryClean.setOnKeyListener(pillKeys);
         btnSettings.setOnKeyListener(pillKeys);
         btnReorder.setOnKeyListener(pillKeys);
         btnReorderSave.setOnKeyListener(pillKeys);
@@ -697,7 +715,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         btnLauncherPanel.setOnKeyListener(pillKeys);
         btnLibraryTop.setOnKeyListener(pillKeys);
         if (advancedEffects) {
-            for (View button : new View[]{btnInputs, btnWifi, btnReorder, btnReorderSave, btnReorderCancel, btnLibraryTop, btnSettings, btnLauncherPanel}) {
+            for (View button : new View[]{btnInputs, btnWifi, btnMemoryClean, btnReorder, btnReorderSave, btnReorderCancel, btnLibraryTop, btnSettings, btnLauncherPanel}) {
                 button.setOnFocusChangeListener((view, focused) -> view.animate()
                         .scaleX(focused ? 1.04f : 1f).scaleY(focused ? 1.04f : 1f)
                         .setDuration(reducedMotion ? Motion.REDUCED_MS : 160).start());
@@ -1111,6 +1129,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
 
     @Override
     protected void onDestroy() {
+        if (memoryCleaner != null) memoryCleaner.close();
         super.onDestroy();
         unregisterReceiver(packageReceiver);
         wallpaperPlayer.close();
@@ -1244,7 +1263,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         dockedBaseline = dockedAtStart;
         reorderHistory.clear();
         reorderHiddenButtons = new View[]{btnInputs, btnWifi, btnReorder, btnLibraryTop,
-                findViewById(R.id.btnSettings), btnLauncherPanel};
+                findViewById(R.id.btnSettings), findViewById(R.id.btnMemoryClean), btnLauncherPanel};
         reorderButtonVisibilities = new int[reorderHiddenButtons.length];
         for (int i = 0; i < reorderHiddenButtons.length; i++) {
             reorderButtonVisibilities[i] = reorderHiddenButtons[i].getVisibility();

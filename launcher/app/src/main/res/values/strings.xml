@@ -188,4 +188,8 @@
     <string name="hide_apps_loading">Loading Home apps…</string>
     <string name="hide_apps_empty">No Home apps to hide.</string>
     <string name="hide_apps_failed">Could not read or save app visibility. Try again.</string>
+    <string name="memory_clean">Free memory</string>
+    <string name="memory_clean_running">Closing background apps…</string>
+    <string name="memory_clean_done">Memory cleanup completed</string>
+    <string name="memory_clean_failed">Could not confirm memory cleanup</string>
 </resources>

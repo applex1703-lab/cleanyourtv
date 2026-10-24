@@ -8,6 +8,8 @@
     <uses-feature android:name="android.hardware.location.gps" android:required="false" />
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- Required to protect non-launchable services from TCL's exclusion-based memory cleanup. -->
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" tools:ignore="QueryAllPackagesPermission" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <!-- Needed since Android 10 to read the Wi-Fi network name for the network pill. Never requested at
          runtime: build-and-install grants it with pm grant, so lint's Android 12 "ask for COARSE with
@@ -59,6 +61,7 @@
              Fire TV: the real settings menu lives in the stock launcher (see settings_fallback_components). -->
         <package android:name="com.xiaomi.mitv.settings" />
         <package android:name="com.tcl.settings" />
+        <package android:name="com.tcl.guard" />
         <package android:name="com.amazon.tv.launcher" />
         <!-- Coocaa OS sources for the Inputs menu (coocaa_sources); see CoocaaSources. -->
         <provider android:authorities="com.skyworth.tv.provider" />

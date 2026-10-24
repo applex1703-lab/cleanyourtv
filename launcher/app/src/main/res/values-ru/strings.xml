@@ -188,4 +188,8 @@
     <string name="hide_apps_loading">Загрузка приложений главного экрана…</string>
     <string name="hide_apps_empty">Нет приложений для скрытия.</string>
     <string name="hide_apps_failed">Не удалось прочитать или сохранить видимость приложений. Попробуйте ещё раз.</string>
+    <string name="memory_clean">Освободить память</string>
+    <string name="memory_clean_running">Закрытие фоновых приложений…</string>
+    <string name="memory_clean_done">Освобождение памяти завершено</string>
+    <string name="memory_clean_failed">Не удалось подтвердить освобождение памяти</string>
 </resources>

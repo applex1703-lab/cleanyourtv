@@ -363,6 +363,14 @@
                     android:nextFocusDown="@+id/grid" />
 
                 <TextView
+                    android:id="@+id/btnMemoryClean"
+                    style="@style/TopButtonIcon"
+                    android:contentDescription="@string/memory_clean"
+                    android:drawableStart="@drawable/ic_memory_clean"
+                    android:visibility="gone"
+                    android:nextFocusDown="@+id/grid" />
+
+                <TextView
                     android:id="@+id/btnSettings"
                     style="@style/TopButton"
                     android:text="@string/settings"
