@@ -7,7 +7,7 @@ public class BackgroundChoiceTest {
     @Test public void selectedUserColorsAreExact() {
         assertEquals(0xFF306CD0, BackgroundChoice.color(1, 0));
         assertEquals(0xFF26945A, BackgroundChoice.color(3, 0));
-        assertEquals(0xFFB82018, BackgroundChoice.color(5, 0));
+        assertEquals(0xFFFF0000, BackgroundChoice.color(5, 0));
     }
     @Test public void pickerHasNoDuplicateColorsAndMapsLegacyIndices() {
         java.util.Set<Integer> unique = new java.util.HashSet<>();

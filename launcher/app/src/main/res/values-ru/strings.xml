@@ -181,6 +181,6 @@
     <string name="gradient_neon">Фиолетовый</string>
     <string name="gradient_sunset">Оранжевый</string>
     <string name="gradient_ocean">Глубокий синий</string>
-    <string name="gradient_lava">Тёмно-красный</string>
+    <string name="gradient_lava">Красный</string>
     <string name="gradient_gold">Золотистый</string>
 </resources>
