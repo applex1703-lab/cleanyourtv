@@ -64,6 +64,27 @@
         <item name="android:gravity">center</item>
     </style>
 
+    <style name="PanelLabel" parent="SettingsSectionLabel">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#FFABB7C6</item>
+    </style>
+    <style name="PanelSegment" parent="SettingsColumnChoice">
+        <item name="android:layout_marginEnd">4dp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:paddingStart">8dp</item>
+        <item name="android:paddingEnd">8dp</item>
+        <item name="android:background">@drawable/settings_segment_bg</item>
+    </style>
+    <style name="PanelAction" parent="SettingsRow">
+        <item name="android:textSize">16sp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">52dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:drawableEnd">@drawable/ic_settings_chevron</item>
+        <item name="android:drawablePadding">12dp</item>
+    </style>
+
     <style name="SettingsTab" parent="SettingsRow">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">48dp</item>

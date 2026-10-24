@@ -48,7 +48,7 @@ public final class LauncherSettingsActivity extends Activity {
         View panel = findViewById(R.id.settingsPanel);
         float density = getResources().getDisplayMetrics().density;
         FrameLayout.LayoutParams panelParams = (FrameLayout.LayoutParams) panel.getLayoutParams();
-        panelParams.width = Math.min(Math.round(540 * density),
+        panelParams.width = Math.min(Math.round(480 * density),
                 Math.max(Math.round(280 * density), getResources().getDisplayMetrics().widthPixels - Math.round(40 * density)));
         panel.setLayoutParams(panelParams);
 
@@ -307,7 +307,7 @@ public final class LauncherSettingsActivity extends Activity {
         for (int i = 0; i < dockChoices.length; i++) dockChoices[i].setSelected(dockOpacity == DOCK_OPACITIES[i]);
         String label = "image".equals(choices.getString(BackgroundChoice.MODE, "colors"))
                 ? getString(R.string.background_image) : colorLabels()[BackgroundChoice.pickerIndex(choices.getInt(BackgroundChoice.PALETTE, 0))];
-        wallpaperChoice.setText(getString(R.string.background_current, label));
+        wallpaperChoice.setText(label);
         backgroundScope.setText(choices.getBoolean(BackgroundChoice.ALWAYS, false)
                 ? R.string.background_always : R.string.background_dock);
     }

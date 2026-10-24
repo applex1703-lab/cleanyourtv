@@ -156,14 +156,14 @@
     <string name="background_title">Фон</string>
     <string name="background_image">Своё изображение</string>
     <string name="background_colors">Цвета</string>
-    <string name="background_auto">Из выбранного приложения</string>
+    <string name="background_auto">Из приложения</string>
     <string name="background_blue">Прохладный синий</string>
     <string name="background_purple">Мягкая сирень</string>
     <string name="background_teal">Хвойный зелёный</string>
     <string name="background_amber">Тёплый персик</string>
     <string name="background_rose">Пыльная роза</string>
     <string name="background_scope">Показывать фон</string>
-    <string name="background_dock">Только на панели</string>
+    <string name="background_dock">При выборе в доке</string>
     <string name="background_always">Всегда</string>
     <string name="background_current">Фон: %1$s</string>
     <string name="background_no_picker">Нет приложения для выбора изображений. Включите проводник с поддержкой выбора файлов с ТВ или USB.</string>

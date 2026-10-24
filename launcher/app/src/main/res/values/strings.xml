@@ -156,14 +156,14 @@
     <string name="background_title">Background</string>
     <string name="background_image">Your image</string>
     <string name="background_colors">Colors</string>
-    <string name="background_auto">From the selected app</string>
+    <string name="background_auto">From app</string>
     <string name="background_blue">Cool blue</string>
     <string name="background_purple">Soft lilac</string>
     <string name="background_teal">Pine green</string>
     <string name="background_amber">Warm peach</string>
     <string name="background_rose">Dusty rose</string>
     <string name="background_scope">Show background</string>
-    <string name="background_dock">Only on the dock</string>
+    <string name="background_dock">When focused in dock</string>
     <string name="background_always">Always</string>
     <string name="background_current">Background: %1$s</string>
     <string name="background_no_picker">No image picker is available. Install or enable a document picker to choose an image from TV or USB.</string>
